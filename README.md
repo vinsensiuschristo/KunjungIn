@@ -1,1 +1,1 @@
-<h1 align="center"> KunjungIn</h1> <br>
+<h1 align="center"> KunjungIn - Cloud Computing</h1> <br>
