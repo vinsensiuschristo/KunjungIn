@@ -1,4 +1,17 @@
 const UsersModel = require('../models/users');
+const {google} = require('googleapis');
+const {PrismaClient} = require('@prisma/client');
+const prisma = new PrismaClient();
+const jwt = require('jsonwebtoken');
+
+// start google auth
+const oauth2Client = new google.auth.OAuth2(
+    process.env.GOOGLE_CLIENT_ID,
+    process.env.GOOGLE_CLIENT_SECRET,
+    'http://localhost:3001/auth/google/callback',
+);
+// end google auth
+
 const createNewUser = async (req, res) => {
   const rating = 0;
   const dateOb = new Date();
@@ -105,10 +118,83 @@ const deleteUser = async (req, res) => {
   }
 };
 
+const authLogin = async (req, res) => {
+  const {code} = req.query;
+
+  const {tokens} = await oauth2Client.getToken(code);
+
+  oauth2Client.setCredentials(tokens);
+
+  const oauth2 = google.oauth2({
+    auth: oauth2Client,
+    version: 'v2',
+  });
+
+  const {data} = await oauth2.userinfo.get();
+
+  if (!data.email || !data.name) {
+    return res.json({
+      data: data,
+    });
+  }
+
+  let user = await prisma.user.findUnique({
+    where: {
+      email: data.email,
+    },
+  });
+
+  if (!user) {
+    user = await prisma.user.create({
+      data: {
+        name: data.name,
+        email: data.email,
+        address: '-',
+        password: '-',
+        rating: 0,
+      },
+    });
+  }
+
+  const payload = {
+    id: user?.id,
+    name: user?.name,
+    address: user?.address,
+  };
+
+  const secret = 'jwtsecret';
+
+  const expiresIn = 60 * 60;
+
+  const token = jwt.sign(payload, secret, {expiresIn: expiresIn});
+
+  // return res.redirect(`http://localhost:3000/auth-success?token=${token}`)
+
+  return res.json({
+    data: {
+      id: user.id,
+      name: user.name,
+      address: user.address,
+    },
+    token: token,
+  });
+};
+
+const registerUser = (req, res) => {
+
+};
+
+const loginUser = (req, res)=> {
+
+};
+
 
 module.exports = {
   getAllUsers,
   createNewUser,
   updateUser,
   deleteUser,
+  authLogin,
+  registerUser,
+  loginUser,
 };

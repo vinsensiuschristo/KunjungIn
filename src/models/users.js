@@ -27,4 +27,28 @@ const deleteUser = (id) => {
   return dbPool.execute(SQLQuery);
 };
 
-module.exports = {getAllUsers, addUser, updateUser, deleteUser};
+const authRegis = async (data) => {
+  const SQLQuery = `SELECT IF(  EXISTS(SELECT * FROM user  
+WHERE LOWER(email) ='${data.email}' ),'true','false' )AS result`;
+
+  // const testing = await dbPool.execute(SQLQuery);
+
+  return dbPool.execute(SQLQuery);
+};
+
+const createAuthRegis = (data) => {
+  const SQLQuery = `INSERT INTO user 
+            (name, email, address, rating) 
+            VALUES ('${data.name}', '${data.email}', 
+            '-', '0')`;
+  return dbPool.execute(SQLQuery);
+};
+
+module.exports = {
+  getAllUsers,
+  addUser,
+  updateUser,
+  deleteUser,
+  authRegis,
+  createAuthRegis,
+};
