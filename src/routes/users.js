@@ -8,16 +8,18 @@ const UserController = require('../controller/users');
 router.post('/', validateToken, UserController.createNewUser);
 
 // READ USER - GET
-router.get('/', UserController.getAllUsers);
+router.get('/', validateToken, UserController.getAllUsers);
 
 // UPDATE USER - PATCH
-router.patch('/:id', UserController.updateUser);
+router.patch('/:id', validateToken, UserController.updateUser);
 
 // DELETE USER - DELETE
-router.delete('/:id', UserController.deleteUser);
+router.delete('/:id', validateToken, UserController.deleteUser);
 
-// AUTH GOOGLE CALLBACK
-// router.get('/', UserController.authLogin);
+// REGISTER USER
+router.post('/register', UserController.registerUser);
 
+// LOGIN USER
+router.post('/login', UserController.loginUser);
 
 module.exports = router;

@@ -3,6 +3,8 @@ const {google} = require('googleapis');
 const {PrismaClient} = require('@prisma/client');
 const prisma = new PrismaClient();
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const {createTokens} = require('../config/jwt');
 
 // start google auth
 const oauth2Client = new google.auth.OAuth2(
@@ -181,11 +183,72 @@ const authLogin = async (req, res) => {
 };
 
 const registerUser = (req, res) => {
+  const {email, password} = req.body;
 
+  try {
+    bcrypt.hash(password, 10).then((hash) => {
+      prisma.user.create({
+        data: {
+          email: email,
+          name: req.body.name,
+          password: hash,
+          rating: 0,
+          address: req.body.address,
+        },
+      }).then(() => {
+        res.status(201).json({
+          status: 'success',
+          message: `Created ${email} successfully`,
+        });
+      });
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: 'error',
+      message: err.message,
+    });
+  }
 };
 
-const loginUser = (req, res)=> {
+const loginUser = async (req, res)=> {
+  const {email, password} = req.body;
 
+  const user = await prisma.user.findUnique({
+    where: {
+      email: email,
+    },
+  });
+
+  // cek email, udah ada email yang di
+  // cari di database atau belum (KALAU GA ADA)
+  if (!user) {
+    res.status(400).json({error: 'User Doesn\'t Exist'});
+  }
+
+  // (KALAU ADA)
+  if (user) {
+    const dbPassword = user.password;
+    bcrypt.compare(password, dbPassword).then((match) => {
+      if (!match) {
+        res.status(401).json({
+          message: 'wrong credentials',
+        });
+      } else {
+        const accessTokens = createTokens(user);
+
+        res.cookie('token', accessTokens, {
+          maxAge: 60 * 60 * 24 * 1000,
+          httpOnly: true,
+        });
+
+        res.status(200).json({
+          message: 'buat token',
+        });
+      }
+    });
+
+    // res.json('login')
+  }
 };
 
 

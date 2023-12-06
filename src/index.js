@@ -6,8 +6,13 @@ const morgan = require('morgan');
 const userRoutes = require('./routes/users');
 const googleAuthRoutes = require('./routes/googleAuth');
 const {google} = require('googleapis');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 
 app.use(morgan('tiny'));
+app.use(cookieParser());
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({extended: false}));
 
 // start google auth
 const oauth2Client = new google.auth.OAuth2(
@@ -30,6 +35,7 @@ const authorizationURL = oauth2Client.generateAuthUrl({
 
 app.use(express.json());
 
+// user routes
 app.use('/api/v1/users', userRoutes);
 
 // route for Google auth
