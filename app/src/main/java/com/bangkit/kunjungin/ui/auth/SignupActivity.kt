@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.bangkit.kunjungin.databinding.ActivitySignupBinding
 
-class SIgnupActivity : AppCompatActivity() {
+class SignupActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySignupBinding
 
