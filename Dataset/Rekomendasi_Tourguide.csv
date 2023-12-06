@@ -1,0 +1,153 @@
+id_tourguide;name;experience_years;city;rating;price
+1;Anisa Suryanto;5;Yogyakarta;4.8 ;500.000
+2;Budi Santoso;3;Yogyakarta;4.7;550.000
+3;Cindy Lim;4;Yogyakarta;4.5;500.000
+4;Dharma Putra;4;Yogyakarta;4.7;550.000
+5;Elisa Tan;6;Surabaya;4.6;700.000
+6;Faisal Rahman;5;Surabaya;4.2;600.000
+7;Gita Wijaya;4;Surabaya;4.5;650.000
+8;Hanif Pratama;6;Surabaya;4.8;700.000
+9;Indah Kusuma;7;Jakarta Barat;4.8;800.000
+10;Joko Susilo;4;Jakarta Barat;4.4;700.000
+11;Karina Putri;6;Jakarta Barat;4.9;900.000
+12;Lukman Harun;5;Jakarta Barat;4.7;750.000
+13;Dian Pratiwi;5;Bandung;4.5;550.000
+14;Fajar Utomo;4;Bandung;4.8;600.000
+15;Ratna Sari;6;Bandung;4.7;700.000
+16;Sugeng Santoso;3;Bandung;4.2;500.000
+17;Rini Handayani;7;Malang;4.9;750.000
+18;Adi Nugroho;5;Malang;4.6;600.000
+19;Yuli Widodo;4;Malang;4.3;550.000
+20;Eka Wijaya;6;Malang;4.7;700.000
+21;Siti Nurhayati;7;Solo;4.8;800.000
+22;Ahmad Setiawan;4;Solo;4.4;650.000
+23;Rina Fitriani;6;Solo;4.9;900.000
+24;Joko Pramono;5;Solo;4.7;750.000
+25;Hendro Setiawan;5;Semarang;4.5;550.000
+26;Sinta Pratiwi;4;Semarang;4.8;600.000
+27;Rudi Santoso;6;Semarang;4.7;700.000
+28;Eva Wijaya;3;Semarang;4.2;500.000
+29;Putra Nugroho;7;Cirebon;4.9;750.000
+30;Sari Handayani;5;Cirebon;4.6;600.000
+31;Bambang Pramono;4;Cirebon;4.3;550.000
+32;Dini Setiawan;6;Cirebon;4.7;700.000
+33;Ahmad Kusuma;7;Tegal;4.8;800.000
+34;Rina Wijaya;4;Tegal;4.4;650.000
+35;Joko Setiadi;6;Tegal;4.9;900.000
+36;Siska Pramudita;5;Tegal;4.7;750.000
+37;Surya Setiawan;5;Cilacap;4.5;550.000
+38;Rini Wijaya;4;Cilacap;4.8;600.000
+39;Dwi Santoso;6;Cilacap;4.7;700.000
+40;Eka Handayani;3;Cilacap;4.2;500.000
+41;Bayu Nugroho;7;Purwokerto;4.9;750.000
+42;Ratna Pratiwi;5;Purwokerto;4.6;600.000
+43;Sigit Wijaya;4;Purwokerto;4.3;550.000
+44;Faliana;6;Purwokerto;4.7;700.000
+45;Rini Setiawan;5;Sukabumi;4.5;550.000
+46;Surya Pratiwi;4;Sukabumi;4.8;600.000
+47;Putri;6;Sukabumi;4.7;700.000
+48;Eva Nugroho;3;Sukabumi;4.2;500.000
+49;Ahmad Handayani;7;Kuningan;4.9;750.000
+50;Ratna Wijaya;5;Kuningan;4.6;600.000
+51;Sigit Pratiwi;4;Kuningan;4.3;550.000
+52;Budi Setiawan;6;Kuningan;4.7;700.000
+53;Eka Kusuma;7;Tasikmalaya;4.8;800.000
+54;Rina Setiawan;4;Tasikmalaya;4.4;650.000
+55;Surya Pramudita;6;Tasikmalaya;4.9;900.000
+56;Dewi Wijaya;5;Tasikmalaya;4.7;750.000
+57;Diana Setiawan;5;Purwakarta;4.5;550.000
+58;Rudi Santoso;4;Purwakarta;4.8;600.000
+59;Eva Pratiwi;6;Purwakarta;4.7;700.000
+60;Budi Nugroho;3;Purwakarta;4.2;500.000
+61;Anita Kusuma;7;Cikarang;4.9;750.000
+62;Rendra Wijaya;5;Cikarang;4.6;600.000
+63;Maya Pratiwi;4;Cikarang;4.3;550.000
+64;Ferry Santoso;6;Cikarang;4.7;700.000
+65;Ratna Kusuma;7;Purbalingga;4.8;800.000
+66;Arif Setiawan;4;Purbalingga;4.4;650.000
+67;Dina Pramudita;6;Purbalingga;4.9;900.000
+68;Eko Wijaya;5;Purbalingga;4.7;750.000
+69;Siti Rahayu;5;Jakarta Pusat;4.5;550.000
+70;Rudi Santoso;4;Jakarta Pusat;4.8;600.000
+71;Eva Pratiwi;6;Jakarta Pusat;4.7;700.000
+72;Budi Nugroho;3;Jakarta Pusat;4.2;500.000
+73;Anita Kusuma;7;Jakarta Selatan;4.9;750.000
+74;Rendra Wijaya;5;Jakarta Selatan;4.6;600.000
+75;Maya Pratiwi;4;Jakarta Selatan;4.3;550.000
+76;Ferry Santoso;6;Jakarta Selatan;4.7;700.000
+77;Ratna Kusuma;7;Jakarta Timur;4.8;800.000
+78;Arif Setiawan;4;Jakarta Timur;4.4;650.000
+79;Dina Pramudita;6;Jakarta Timur;4.9;900.000
+80;Eko Wijaya;5;Jakarta Timur;4.7;750.000
+81;Surya Setiawan;7;Jakarta Utara;4.5;550.000
+82;Rini Pratiwi;4;Jakarta Utara;4.8;600.000
+83;Dian Santoso;6;Jakarta Utara;4.7;700.000
+84;Eva Nugroho;3;Jakarta Utara;4.2;500.000
+85;Dian Setiawan;5;Banjar;4.5;550.000
+86;Rudi Santoso;4;Banjar;4.8;600.000
+87;Eva Pratiwi;6;Banjar;4.7;700.000
+88;Budi Nugroho;3;Banjar;4.2;500.000
+89;Anita Kusuma;7;Bogor;4.9;750.000
+90;Rendra Wijaya;5;Bogor;4.6;600.000
+91;Maya Pratiwi;4;Bogor;4.3;550.000
+92;Ferry Santoso;6;Bogor;4.7;700.000
+93;Ratna Kusuma;7;Bekasi;4.8;800.000
+94;Arif Setiawan;4;Bekasi;4.4;650.000
+95;Dina Pramudita;6;Bekasi;4.9;900.000
+96;Eko Wijaya;5;Bekasi;4.7;750.000
+97;Surya Setiawan;7;Cimahi;4.5;550.000
+98;Rini Pratiwi;4;Cimahi;4.8;600.000
+99;Melani;6;Cimahi;4.7;700.000
+100;Eva Nugroho;3;Cimahi;4.2;500.000
+101;Ahmad Kusuma;7;Cirebon;4.8;800.000
+102;Rina Setiawan;4;Cirebon;4.4;650.000
+103;Dwi Pratiwi;6;Cirebon;4.9;900.000
+104;Yudi Wijaya;5;Cirebon;4.7;750.000
+105;Siti Rahayu;7;Depok;4.5;550.000
+106;Rudi Wijaya;4;Depok;4.8;600.000
+107;Maya Santoso;6;Depok;4.7;700.000
+108;Dina Nugroho;3;Depok;4.2;500.000
+109;Rini Setiawan;5;Magelang;4.5;550.000
+110;Rudi Santoso;4;Magelang;4.8;600.000
+111;Eva Pratiwi;6;Magelang;4.7;700.000
+112;Budi Nugroho;3;Magelang;4.2;500.000
+113;Anita Kusuma;7;Pekalongan;4.9;750.000
+114;Rendra Wijaya;5;Pekalongan;4.6;600.000
+115;Maya Pratiwi;4;Pekalongan;4.3;550.000
+116;Ferry Santoso;6;Pekalongan;4.7;700.000
+117;Ratna Kusuma;7;Salatiga;4.8;800.000
+118;Arif Setiawan;4;Salatiga;4.4;650.000
+119;Dina Pramudita;6;Salatiga;4.9;900.000
+120;Eko Wijaya;5;Salatiga;4.7;750.000
+121;Surya Setiawan;7;Surakarta;4.5;550.000
+122;Rini Pratiwi;4;Surakarta;4.8;600.000
+123;Dian Santoso;6;Surakarta;4.7;700.000
+124;Eva Nugroho;3;Surakarta;4.2;500.000
+125;Ahmad Kusuma;7;Tegal;4.8;800.000
+126;Rina Setiawan;4;Tegal;4.4;650.000
+127;Dwi Pratiwi;6;Tegal;4.9;900.000
+128;Yudi Wijaya;5;Tegal;4.7;750.000
+129;Filipus;5;Batu;4.5;550.000
+130;Kenneth;4;Batu;4.8;600.000
+131;Anderson;6;Batu;4.7;700.000
+132;Willi;3;Batu;4.2;500.000
+133;Rahmat Lingga;7;Kediri;4.9;750.000
+134;Rangga Permana;5;Kediri;4.6;600.000
+135;Gabriel ;4;Kediri;4.3;550.000
+136;Ferry Carlos;6;Kediri;4.7;700.000
+137;Daniel;7;Madiun;4.8;800.000
+138;Arif Dede;4;Madiun;4.4;650.000
+139;Dimas;6;Madiun;4.9;900.000
+140;Dennis;5;Madiun;4.7;750.000
+141;Denny Sumargo;7;Mojokerto;4.5;550.000
+142;Cellos;4;Mojokerto;4.8;600.000
+143;Mamat;6;Mojokerto;4.7;700.000
+144;Tri Mulyana;3;Mojokerto;4.2;500.000
+145;Ade Mulyana;7;Pasuruan;4.8;800.000
+146;Ridwan;4;Pasuruan;4.4;650.000
+147;Rizal Bakhri;6;Pasuruan;4.9;900.000
+148;Yudi Wijaya;5;Pasuruan;4.7;750.000
+149;Siti Rahayu;7;Probolinggo;4.5;550.000
+150;Rudi Wijaya;4;Probolinggo;4.8;600.000
+151;Maya Santoso;6;Probolinggo;4.7;700.000
+152;Dina Nugroho;3;Probolinggo;4.2;500.000
