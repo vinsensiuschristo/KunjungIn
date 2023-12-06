@@ -1,0 +1,18 @@
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:ns1="http://schemas.android.com/apk/res-auto">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.KunjungIn" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/brown_dark</item>
+        <item name="colorPrimaryVariant">@color/deep_russet_brown</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <item name="colorSecondary">@color/brown_grey</item>
+        <item name="colorOnSecondary">@color/white</item>
+
+        <item name="android:statusBarColor" ns1:targetApi="1">?attr/colorPrimaryVariant</item>
+        <item name="bottomNavigationStyle">@style/Widget.MaterialComponents.BottomNavigationView</item>
+    </style>
+
+    <style name="Theme.KunjungIn" parent="Base.Theme.KunjungIn" />
+</resources>
