@@ -4,6 +4,10 @@ const app = express();
 const port = process.env.PORT;
 const morgan = require('morgan');
 const userRoutes = require('./routes/users');
+
+// const sendToPythonRoutes = require('./routes/python');
+const PythonController = require('../src/controller/python');
+
 const googleAuthRoutes = require('./routes/googleAuth');
 const {google} = require('googleapis');
 const bodyParser = require('body-parser');
@@ -13,12 +17,13 @@ app.use(morgan('tiny'));
 app.use(cookieParser());
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 
 // start google auth
 const oauth2Client = new google.auth.OAuth2(
     process.env.GOOGLE_CLIENT_ID,
     process.env.GOOGLE_CLIENT_SECRET,
-    'http://localhost:3001/auth/google/callback',
+    'https://kunjungin-api-dot-kunjunginapp.et.r.appspot.com/auth/google/callback',
 );
 
 const scopes = [
@@ -45,6 +50,12 @@ app.get('/auth/google', (req, res) => {
 
 // callback login
 app.use('/auth/google', googleAuthRoutes);
+
+// python routes, baru buat post aja kalau ada
+// fungsi lain mungkin nanti bisa diganti jadi app.use
+// ini juga langsung ke controller
+app.post('/send-to-python', PythonController.sendToPython);
+
 
 app.listen(port, ()=> {
   console.log(`listening on port ${port}`);
