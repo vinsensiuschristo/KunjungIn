@@ -10,7 +10,7 @@ const {createTokens} = require('../config/jwt');
 const oauth2Client = new google.auth.OAuth2(
     process.env.GOOGLE_CLIENT_ID,
     process.env.GOOGLE_CLIENT_SECRET,
-    'http://localhost:3001/auth/google/callback',
+    'https://kunjungin-api-dot-kunjunginapp.et.r.appspot.com/auth/google/callback',
 );
 // end google auth
 

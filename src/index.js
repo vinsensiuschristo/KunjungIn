@@ -32,7 +32,7 @@ const scopes = [
 ];
 
 const authorizationURL = oauth2Client.generateAuthUrl({
-  access_type: 'offline',
+  access_type: 'online',
   scope: scopes,
   include_granted_scopes: true,
 });
