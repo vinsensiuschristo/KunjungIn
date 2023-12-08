@@ -182,8 +182,23 @@ const authLogin = async (req, res) => {
   });
 };
 
-const registerUser = (req, res) => {
+const registerUser = async (req, res) => {
   const {email, password} = req.body;
+
+  const user = await prisma.user.findUnique({
+    where: {
+      email: email,
+    },
+  });
+
+  // cek email, udah ada email yang di
+  // cari di database atau belum (KALAU GA ADA)
+  if (user) {
+    return res.status(409).json({
+      error: true,
+      message: 'Email is already taken',
+    });
+  }
 
   try {
     bcrypt.hash(password, 10).then((hash) => {
@@ -197,8 +212,8 @@ const registerUser = (req, res) => {
         },
       }).then(() => {
         res.status(201).json({
-          status: 'success',
-          message: `Created ${email} successfully`,
+          'error': false,
+          'message': 'User Created',
         });
       });
     });
@@ -222,7 +237,10 @@ const loginUser = async (req, res)=> {
   // cek email, udah ada email yang di
   // cari di database atau belum (KALAU GA ADA)
   if (!user) {
-    res.status(400).json({error: 'User Doesn\'t Exist'});
+    res.status(404).json({
+      error: true,
+      message: 'Email Doesn\'t Exist',
+    });
   }
 
   // (KALAU ADA)
@@ -231,7 +249,8 @@ const loginUser = async (req, res)=> {
     bcrypt.compare(password, dbPassword).then((match) => {
       if (!match) {
         res.status(401).json({
-          message: 'wrong credentials',
+          error: true,
+          message: 'Invalid password',
         });
       } else {
         const accessTokens = createTokens(user);
@@ -242,7 +261,12 @@ const loginUser = async (req, res)=> {
         });
 
         res.status(200).json({
-          message: 'buat token',
+          error: false,
+          message: 'Success',
+          loginResult: {
+            userId: user.id,
+            token: accessTokens,
+          },
         });
       }
     });
