@@ -3,7 +3,7 @@
 const axios = require('axios');
 
 const sendToPython = async (req, res, next) => {
-  console.log('welcome to python');
+  // console.log('welcome to python');
 
   const existToken = req.cookies['token'];
   console.log(existToken);
