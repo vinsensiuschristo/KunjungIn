@@ -5,6 +5,7 @@ const prisma = new PrismaClient();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const {createTokens} = require('../config/jwt');
+const {v4: uuidv4} = require('uuid');
 
 // start google auth
 const oauth2Client = new google.auth.OAuth2(
@@ -146,6 +147,8 @@ const authLogin = async (req, res) => {
     },
   });
 
+  const userId = 'user-'+uuidv4();
+
   if (!user) {
     user = await prisma.user.create({
       data: {
@@ -154,6 +157,7 @@ const authLogin = async (req, res) => {
         address: '-',
         password: '-',
         rating: 0,
+        user_id: userId,
       },
     });
   }
@@ -174,11 +178,14 @@ const authLogin = async (req, res) => {
 
   return res.json({
     data: {
-      id: user.id,
-      name: user.name,
-      address: user.address,
+      error: false,
+      message: 'Success',
+      loginResult: {
+        userId: userId,
+        token: token,
+      },
     },
-    token: token,
+
   });
 };
 
@@ -201,6 +208,8 @@ const registerUser = async (req, res) => {
   }
 
   try {
+    const userId = 'user-'+uuidv4();
+
     bcrypt.hash(password, 10).then((hash) => {
       prisma.user.create({
         data: {
@@ -209,6 +218,7 @@ const registerUser = async (req, res) => {
           password: hash,
           rating: 0,
           address: req.body.address,
+          user_id: userId,
         },
       }).then(() => {
         res.status(201).json({

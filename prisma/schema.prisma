@@ -9,7 +9,6 @@ datasource db {
 
 model user {
   id            Int       @id @default(autoincrement())
-  user_id       String    @unique
   email         String    @unique
   name          String
   password      String
@@ -18,32 +17,35 @@ model user {
   rating        Float
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
+  user_id       String    @unique
 }
 
 model historical_place {
-  id        Int      @id @default(autoincrement())
-  name      String
-  description String @db.Text
-  address   String @db.Text
-  latitude  String
-  longitude String
-  city      city     @relation(fields: [city_id], references: [id])
-  city_id    Int
-  opening_hours String @db.Text
-  rating    Decimal @db.Decimal(precision: 3, scale: 2)
-  user_rating Int
-  types String
-  phone_number String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id            Int      @id @default(autoincrement())
+  name          String
+  description   String   @db.Text
+  address       String   @db.Text
+  latitude      String
+  longitude     String
+  city_id       Int
+  opening_hours String   @db.Text
+  rating        Decimal  @db.Decimal(3, 2)
+  user_rating   Int
+  types         String
+  phone_number  String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  city          city     @relation(fields: [city_id], references: [id])
+
+  @@index([city_id], map: "historical_place_city_id_fkey")
 }
 
 model city {
-  id        Int         @id @default(autoincrement())
+  id        Int                @id @default(autoincrement())
   name      String
   province  String
   country   String
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
   places    historical_place[]
 }
