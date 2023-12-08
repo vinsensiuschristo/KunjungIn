@@ -18,6 +18,8 @@ model user {
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   user_id       String    @unique
+  city_id       Int
+  city          city      @relation(fields: [city_id], references: [id])
 }
 
 model historical_place {
@@ -48,4 +50,5 @@ model city {
   createdAt DateTime           @default(now())
   updatedAt DateTime           @updatedAt
   places    historical_place[]
+  user      user[]
 }

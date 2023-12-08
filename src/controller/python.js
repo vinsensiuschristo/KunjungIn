@@ -12,7 +12,7 @@ const sendToPython = async (req, res, next) => {
     const dataToSend = req.body;
 
     // Kirim data JSON ke aplikasi Python dengan mengatur header Content-Type
-    const pythonResponse = await axios.post('http://localhost:5000/process-data', dataToSend, {
+    const pythonResponse = await axios.post('https://kunjungin-python-dot-kunjunginapp.et.r.appspot.com/process-data', dataToSend, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + existToken,
@@ -31,4 +31,32 @@ const sendToPython = async (req, res, next) => {
   }
 };
 
-module.exports = {sendToPython};
+const getAllPlaces = async (req, res, next) => {
+  const existToken = req.cookies['token'];
+
+  try {
+    const dataToSend = req.body;
+
+    // Kirim data JSON ke aplikasi Python dengan mengatur header Content-Type
+    const pythonResponse = await axios.post('https://kunjungin-python-dot-kunjunginapp.et.r.appspot.com/places', dataToSend, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + existToken,
+      },
+    });
+
+    console.log('Response from Python:', pythonResponse.data);
+
+    // Kirim respons dari Python kembali ke client (Express.js)
+    res.json({
+      message: 'Data processed successfully', result: pythonResponse.data,
+    });
+  } catch (e) {
+    res.status(500).json({
+      error: true,
+      message: e.message,
+    });
+  }
+};
+
+module.exports = {sendToPython, getAllPlaces};

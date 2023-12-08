@@ -158,6 +158,7 @@ const authLogin = async (req, res) => {
         password: '-',
         rating: 0,
         user_id: userId,
+        city_id: 1,
       },
     });
   }
@@ -168,7 +169,7 @@ const authLogin = async (req, res) => {
     address: user?.address,
   };
 
-  const secret = 'jwtsecret';
+  const secret = 'kunjunginapp-iculARZENOMo';
 
   const expiresIn = 60 * 60;
 
@@ -182,6 +183,7 @@ const authLogin = async (req, res) => {
       message: 'Success',
       loginResult: {
         userId: userId,
+        name: user?.name,
         token: token,
       },
     },
@@ -219,6 +221,7 @@ const registerUser = async (req, res) => {
           rating: 0,
           address: req.body.address,
           user_id: userId,
+          city_id: req.body.city_id,
         },
       }).then(() => {
         res.status(201).json({
@@ -275,6 +278,7 @@ const loginUser = async (req, res)=> {
           message: 'Success',
           loginResult: {
             userId: user.id,
+            name: user.name,
             token: accessTokens,
           },
         });
