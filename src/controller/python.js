@@ -35,17 +35,13 @@ const getAllPlaces = async (req, res, next) => {
   const existToken = req.cookies['token'];
 
   try {
-    const dataToSend = req.body;
-
     // Kirim data JSON ke aplikasi Python dengan mengatur header Content-Type
-    const pythonResponse = await axios.post('https://kunjungin-python-dot-kunjunginapp.et.r.appspot.com/places', dataToSend, {
+    const pythonResponse = await axios.get('https://kunjungin-python-dot-kunjunginapp.et.r.appspot.com/places', {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + existToken,
       },
     });
-
-    console.log('Response from Python:', pythonResponse.data);
 
     // Kirim respons dari Python kembali ke client (Express.js)
     res.json({
