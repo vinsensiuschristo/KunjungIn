@@ -2,7 +2,7 @@
 // const bodyParser = require('body-parser');
 const axios = require('axios');
 
-const sendToPython = async (req, res, next) => {
+const getPlaceNearby = async (req, res, next) => {
   // console.log('welcome to python');
 
   const existToken = req.cookies['token'];
@@ -10,9 +10,13 @@ const sendToPython = async (req, res, next) => {
 
   try {
     const dataToSend = req.body;
-
+    // const dataToSend = {
+    //   PlaceName: 'Museum',
+    //   latitude: -7.760882,
+    //   longitude: 110.415348,
+    // };
     // Kirim data JSON ke aplikasi Python dengan mengatur header Content-Type
-    const pythonResponse = await axios.post('https://kunjungin-python-dot-kunjunginapp.et.r.appspot.com/process-data', dataToSend, {
+    const pythonResponse = await axios.post('http://localhost:5000/place-nearby', dataToSend, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + existToken,
@@ -55,4 +59,4 @@ const getAllPlaces = async (req, res, next) => {
   }
 };
 
-module.exports = {sendToPython, getAllPlaces};
+module.exports = {getAllPlaces, getPlaceNearby};

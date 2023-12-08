@@ -5,7 +5,7 @@ const {validateToken} = require('../config/jwt');
 const PythonController = require('../controller/python');
 
 // CREATE USER - POST
-router.post('/', PythonController.sendToPython);
+// router.post('/', PythonController.sendToPython);
 
 // GET ALL PLACES
 router.get('/places', validateToken, PythonController.getAllPlaces);
@@ -20,7 +20,7 @@ router.get('/places', validateToken, PythonController.getAllPlaces);
 // router.get('/cities/:city_id/places/:place_id', validateToken, PythonController.getPlaceDetail)
 
 // GET PLACE WITH DISTANCE RECOMMENDATION
-// router.get('/places/nearby', validateToken, PythonController.getPlaceNearby)
+router.post('/places/nearby', validateToken, PythonController.getPlaceNearby);
 
 // GET PLACE WITH RATING
 // router.get('/places/rating', validateToken, PythonController.getRating)
