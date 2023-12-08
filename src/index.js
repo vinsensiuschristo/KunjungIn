@@ -13,6 +13,8 @@ const {google} = require('googleapis');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
+const {validateToken} = require('../src/config/jwt');
+
 app.use(morgan('tiny'));
 app.use(cookieParser());
 // parse application/x-www-form-urlencoded
@@ -54,7 +56,7 @@ app.use('/auth/google', googleAuthRoutes);
 // python routes, baru buat post aja kalau ada
 // fungsi lain mungkin nanti bisa diganti jadi app.use
 // ini juga langsung ke controller
-app.post('/send-to-python', PythonController.sendToPython);
+app.post('/send-to-python', validateToken, PythonController.sendToPython);
 
 
 app.listen(port, ()=> {
