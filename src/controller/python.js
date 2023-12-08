@@ -5,6 +5,9 @@ const axios = require('axios');
 const sendToPython = async (req, res, next) => {
   console.log('welcome to python');
 
+  const existToken = req.cookies['token'];
+  console.log(existToken);
+
   try {
     const dataToSend = req.body;
 
@@ -12,6 +15,7 @@ const sendToPython = async (req, res, next) => {
     const pythonResponse = await axios.post('http://localhost:5000/process-data', dataToSend, {
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + existToken,
       },
     });
 
