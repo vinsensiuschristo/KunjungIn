@@ -16,7 +16,7 @@ const getPlaceNearby = async (req, res, next) => {
     //   longitude: 110.415348,
     // };
     // Kirim data JSON ke aplikasi Python dengan mengatur header Content-Type
-    const pythonResponse = await axios.post('http://localhost:5000/place-nearby', dataToSend, {
+    const pythonResponse = await axios.post('https://kunjungin-python-dot-kunjunginapp.et.r.appspot.com/place-nearby', dataToSend, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + existToken,
