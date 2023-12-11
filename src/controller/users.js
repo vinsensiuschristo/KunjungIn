@@ -222,7 +222,7 @@ const registerUser = async (req, res) => {
           address: req.body.address,
           user_id: userId,
           // city_id: req.body.city_id,
-          city_id: 0,
+          city_id: 1,
         },
       }).then(() => {
         res.status(201).json({
