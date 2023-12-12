@@ -1,0 +1,6 @@
+runtime: python39
+service: kunjungin-python
+
+handlers:
+- url: /.*
+  script: auto
