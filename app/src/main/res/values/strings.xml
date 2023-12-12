@@ -29,4 +29,8 @@
     <string name="to_login">Sudah punya akun? Masuk</string>
     <string name="to_signup">Belum punya akun? Daftar</string>
     <string name="username">Nama Pengguna</string>
+    <string name="address_placeholder">Detail Alamat</string>
+    <string name="address">Alamat</string>
+    <string name="required_field">Tidak boleh dikosongkan</string>
+    <string name="select_city">Pilih Kota</string>
 </resources>
