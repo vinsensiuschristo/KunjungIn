@@ -1,7 +1,7 @@
 const {sign, verify} = require('jsonwebtoken');
 
 const createTokens = (user) => {
-  return sign({email: user.email, id: user.id}, 'kunjunginapp-iculARZENOMo');
+  return sign({email: user.email, id: user.id}, process.env.JWTSECRET);
 };
 
 const validateToken = (req, res, next) => {
@@ -15,7 +15,7 @@ const validateToken = (req, res, next) => {
   }
 
   try {
-    const validToken = verify(existToken, 'kunjunginapp-iculARZENOMo');
+    const validToken = verify(existToken, process.env.JWTSECRET);
 
     if (validToken) {
       req.authenticated = true;

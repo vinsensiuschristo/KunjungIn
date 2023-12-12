@@ -169,11 +169,10 @@ const authLogin = async (req, res) => {
     address: user?.address,
   };
 
-  const secret = 'kunjunginapp-iculARZENOMo';
-
   const expiresIn = 60 * 60;
 
-  const token = jwt.sign(payload, secret, {expiresIn: expiresIn});
+  const token = jwt.sign(payload, process.env.JWTSECRET,
+      {expiresIn: expiresIn});
 
   // return res.redirect(`http://localhost:3000/auth-success?token=${token}`)
 
