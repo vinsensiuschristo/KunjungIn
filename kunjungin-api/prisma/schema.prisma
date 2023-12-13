@@ -8,18 +8,19 @@ datasource db {
 }
 
 model user {
-  id            Int       @id @default(autoincrement())
-  email         String    @unique
-  name          String
-  password      String
-  date_of_birth DateTime?
-  address       String
-  rating        Float
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  user_id       String    @unique
-  city_id       Int
-  city          city      @relation(fields: [city_id], references: [id])
+  id              Int                   @id @default(autoincrement())
+  email           String                @unique
+  name            String
+  password        String
+  date_of_birth   DateTime?
+  address         String
+  rating          Float
+  createdAt       DateTime              @default(now())
+  updatedAt       DateTime              @updatedAt
+  user_id         String                @unique
+  city_id         Int
+  city            city                  @relation(fields: [city_id], references: [id])
+  recommendations user_recommendation[]
 }
 
 model historical_place {
@@ -51,4 +52,20 @@ model city {
   updatedAt DateTime           @updatedAt
   places    historical_place[]
   user      user[]
+}
+
+model place_type {
+  id        Int      @id @default(autoincrement())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model user_recommendation {
+  id        Int      @id @default(autoincrement())
+  user_id   Int      @unique
+  user      user     @relation(fields: [user_id], references: [id])
+  type_id   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
