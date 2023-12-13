@@ -13,6 +13,9 @@ router.get('/places', validateToken, PythonController.getAllPlaces);
 // GET ALL CITY
 // router.get('/cities/', validateToken, PythonController.getCity)
 
+// GET ALL PLACE_TYPE
+// router.get('/cities/', validateToken, PythonController.getCity)
+
 // GET PLACE WITH CITY
 // router.get('/cities/:city_id', validateToken, PythonController.getPlaceWithCity)
 
