@@ -6,14 +6,12 @@ const morgan = require('morgan');
 const userRoutes = require('./routes/users');
 
 const sendToPythonRoutes = require('./routes/python');
-const PythonController = require('../src/controller/python');
+const userRecommendationRoutes = require('./routes/recommendation');
 
 const googleAuthRoutes = require('./routes/googleAuth');
 const {google} = require('googleapis');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-
-const {validateToken} = require('../src/config/jwt');
 
 app.use(morgan('tiny'));
 app.use(cookieParser());
@@ -57,6 +55,9 @@ app.use('/auth/google', googleAuthRoutes);
 // fungsi lain mungkin nanti bisa diganti jadi app.use
 // ini juga langsung ke controller
 app.use('/api/v1/recommendation/', sendToPythonRoutes);
+
+// user recommendation
+app.use('/api/v1/userRecommendation', userRecommendationRoutes);
 
 
 app.listen(port, ()=> {
