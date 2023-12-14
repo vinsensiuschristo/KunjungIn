@@ -70,7 +70,15 @@ const createNewUser = async (req, res) => {
 
 const getAllUsers = async (req, res) => {
   try {
-    const [data] = await UsersModel.getAllUsers();
+    const data = await prisma.user.findMany({
+      select: {
+        id: true,
+        email: true,
+        date_of_birth: true,
+        address: true,
+        rating: true,
+      },
+    });
 
     res.json({
       message: 'success',
@@ -86,14 +94,46 @@ const getAllUsers = async (req, res) => {
 
 const updateUser = async (req, res) => {
   const {id} = req.params;
-  const {body} = req;
+  const newId = parseInt(id);
+
+  const {password} = req.body;
+  const hashedPassword = bcrypt.hashSync(password, 10);
+
+  const user = await prisma.user.findUnique({
+    where: {
+      id: newId,
+    },
+  });
+
+  // cek email, udah ada email yang di
+  // cari di database atau belum (KALAU GA ADA)
+  if (!user) {
+    return res.status(404).json({
+      error: true,
+      message: 'User is not found',
+    });
+  }
 
   try {
-    await UsersModel.updateUser(body, id);
+    await prisma.user.update({
+      where: {
+        id: newId,
+      },
+      data: {
+        name: req.body.name,
+        email: req.body.email,
+        password: hashedPassword,
+        address: req.body.address,
+      },
+    });
 
     res.json({
       message: `Update User ${id} successfully`,
-      data: req.body,
+      data: {
+        name: req.body.name,
+        email: req.body.email,
+        address: req.body.address,
+      },
     });
   } catch (err) {
     res.status(500).json({
@@ -105,9 +145,29 @@ const updateUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
   const {id} = req.params;
+  const newId = parseInt(id);
+
+  const user = await prisma.user.findUnique({
+    where: {
+      id: newId,
+    },
+  });
+
+  // cek email, udah ada email yang di
+  // cari di database atau belum (KALAU GA ADA)
+  if (!user) {
+    return res.status(404).json({
+      error: true,
+      message: 'User is not found',
+    });
+  }
 
   try {
-    await UsersModel.deleteUser(id);
+    await prisma.user.delete({
+      where: {
+        id: newId,
+      },
+    });
 
     res.json({
       status: 'success',
