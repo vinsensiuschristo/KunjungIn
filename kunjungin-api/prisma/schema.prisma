@@ -26,21 +26,22 @@ model user {
 }
 
 model historical_place {
-  id            Int      @id @default(autoincrement())
-  name          String
-  description   String   @db.Text
-  address       String   @db.Text
-  latitude      String
-  longitude     String
-  city_id       Int
-  opening_hours String   @db.Text
-  rating        Decimal  @db.Decimal(3, 2)
-  user_rating   Int
-  types         String
-  phone_number  String
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  city          city     @relation(fields: [city_id], references: [id])
+  id              Int      @id @default(autoincrement())
+  name            String
+  description     String   @db.Text
+  address         String   @db.Text
+  latitude        String
+  longitude       String
+  city_id         Int
+  opening_hours   String   @db.Text
+  photo_reference String   @db.Text
+  rating          Decimal  @db.Decimal(3, 2)
+  user_rating     Int
+  types           String
+  phone_number    String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  city            city     @relation(fields: [city_id], references: [id])
 
   @@index([city_id], map: "historical_place_city_id_fkey")
 }
