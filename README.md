@@ -237,3 +237,136 @@ Used to Update User.
 }
 ```
 
+_______
+
+# Place Recommendation By Distance
+
+Used to get a list of historical places nearby the user location.
+
+**URL** : `/api/v1/placeRecommendation/places/nearby`
+
+**Method** : `POST`
+
+**Auth required** : YES
+
+**Data constraints**
+
+```json
+{
+  "PlaceName":"[hint for place name]",
+  "latitude": "[user latitude position locatin]",
+  "longitude": "[user longitude position locatin]",
+  "city_id": "[city id]"
+}
+```
+
+**Data example**
+
+```json
+{
+  "PlaceName": "Museum",
+  "latitude" : -6.5980046,
+  "longitude" : 106.7948917,
+  "city_id" : 8
+}
+```
+
+## Success Response
+
+**Code** : `200 OK`
+
+**Content example**
+
+```json
+{
+  "message": "Data processed successfully",
+    "result": [
+        {
+            "distance": 0.07054605348299524,
+            "name": "Museum Kepresidenan Balai Kirti",
+            "photo_reference": "ATJ83ziSIi0n9NfWYfEF9-ER4Y5gDhzIX8RWm9EOLggqQJ49e7ldZKGENIWUVBrLnuA3KUZXu1YVwZzW3b8_gDxu-FlSn_USc77KGgCU60-K8w4cPxk0UrQTNPFQgcALrmj_XiJlcKsgSaTRsFJRRrudfFIFapuTB25C12-B0YZs3IK3lnlr",
+            "rating": 4.7,
+            "types": "museum|tourist_attraction|point_of_interest|establishment"
+        },
+        {
+            "distance": 0.16097798593307444,
+            "name": "Indonesian Museum of Ethnobotany",
+            "photo_reference": "ATJ83zgKN8-RFxFcKsPMmQ5cGzEPQPTO8vjbgHu4rOIdRwJwmZuzp-BnMShdrhV3ZU4ZSOC_DRxzeZOvTk-iXnd7QOEPIiDUNeT3w81FSKMPbeM24oXKm-AseEIHkAS64Mr7tXsZDivopfRukFcZkfEFvYTj17AdU7rLoIuzlRYF2XePfDAr",
+            "rating": 4.6,
+            "types": "museum|tourist_attraction|point_of_interest|establishment"
+        },
+        {
+            "distance": 0.713848081408731,
+            "name": "Museum Tanah dan Pertanian",
+            "photo_reference": "ATJ83zgDYYH6iBw5Pu5mgBP64rseEefindzMPaZwxvY2xZsUzlrGCHTivCNd7uCRsti2v74RqubigRuSjkahFQbozJZ2A0D7jj4xRi06-fV88cYgEIhmwXgngDs34Ywwg2tcOekn6L1r1JF0SmQUjsEeKGTqFplMmuHxiRw50Iomiu40_OrO",
+            "rating": 4.7,
+            "types": "museum|tourist_attraction|point_of_interest|establishment"
+        }
+    ]
+}
+```
+_______
+
+
+# Place Recommendation By Rating
+
+Used to get a list of historical places around the user location based on highest rating.
+
+**URL** : `/api/v1/placeRecommendation/places/top`
+
+**Method** : `POST`
+
+**Auth required** : YES
+
+**Data constraints**
+
+```json
+{
+  "PlaceName":"[hint for place name]",
+  "types": "[user latitude position locatin]",
+  "city_id": "[city id]"
+}
+```
+
+**Data example**
+
+```json
+{
+  "PlaceName": "Museum",
+  "types": "museum|tourist_attraction|point_of_interest|establishment",
+  "city_id" : 8
+}
+```
+
+## Success Response
+
+**Code** : `200 OK`
+
+**Content example**
+
+```json
+{
+  "message": "Data processed successfully",
+    "result": [
+        {
+            "name": "Perpustakaan BBalitvet",
+            "photo_reference": "ATJ83zhwny_FutwnEqwLix0TivFzPPuy1xWbuyypELpoKDgPU2yDhoi05O2D3Sl-__qSEYQcMEbtY-ZgNk45sdO6-GIZ3tWHJf_b6t0qn5RGmbdsKEDTanD6aZHKOPJucLXs6KSi0KsQ-nv_QTurC0fPi2EPlK0Pb2-vlN7hUZVxdkoveWcE",
+            "rating": 4.8,
+            "types": "museum|tourist_attraction|point_of_interest|establishment"
+        },
+        {
+            "name": "Museum Tanah dan Pertanian",
+            "photo_reference": "ATJ83zgDYYH6iBw5Pu5mgBP64rseEefindzMPaZwxvY2xZsUzlrGCHTivCNd7uCRsti2v74RqubigRuSjkahFQbozJZ2A0D7jj4xRi06-fV88cYgEIhmwXgngDs34Ywwg2tcOekn6L1r1JF0SmQUjsEeKGTqFplMmuHxiRw50Iomiu40_OrO",
+            "rating": 4.7,
+            "types": "museum|tourist_attraction|point_of_interest|establishment"
+        },
+        {
+            "name": "Museum Kepresidenan Balai Kirti",
+            "photo_reference": "ATJ83ziSIi0n9NfWYfEF9-ER4Y5gDhzIX8RWm9EOLggqQJ49e7ldZKGENIWUVBrLnuA3KUZXu1YVwZzW3b8_gDxu-FlSn_USc77KGgCU60-K8w4cPxk0UrQTNPFQgcALrmj_XiJlcKsgSaTRsFJRRrudfFIFapuTB25C12-B0YZs3IK3lnlr",
+            "rating": 4.7,
+            "types": "museum|tourist_attraction|point_of_interest|establishment"
+        }
+    ]
+}
+```
+_______
