@@ -5,7 +5,7 @@ const port = process.env.PORT;
 const morgan = require('morgan');
 const userRoutes = require('./routes/users');
 
-const placeRecommendationRoutes = require('./routes/placeRecommendation');
+const placeRecommendationRoutes = require('./routes/place_recommendation');
 const userRecommendationRoutes = require('./routes/recommendation');
 
 const googleAuthRoutes = require('./routes/googleAuth');
