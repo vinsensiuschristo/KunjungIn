@@ -5,7 +5,7 @@ const port = process.env.PORT;
 const morgan = require('morgan');
 const userRoutes = require('./routes/users');
 
-const sendToPythonRoutes = require('./routes/python');
+const placeRecommendationRoutes = require('./routes/placeRecommendation');
 const userRecommendationRoutes = require('./routes/recommendation');
 
 const googleAuthRoutes = require('./routes/googleAuth');
@@ -54,7 +54,7 @@ app.use('/auth/google', googleAuthRoutes);
 // python routes, baru buat post aja kalau ada
 // fungsi lain mungkin nanti bisa diganti jadi app.use
 // ini juga langsung ke controller
-app.use('/api/v1/recommendation/', sendToPythonRoutes);
+app.use('/api/v1/placeRecommendation/', placeRecommendationRoutes);
 
 // user recommendation
 app.use('/api/v1/userRecommendation', userRecommendationRoutes);

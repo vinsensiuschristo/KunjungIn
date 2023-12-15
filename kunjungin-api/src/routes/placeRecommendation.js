@@ -2,13 +2,13 @@ const express = require('express');
 const router = express.Router();
 const {validateToken} = require('../config/jwt');
 
-const PythonController = require('../controller/python');
+const PlaceRecommendationController = require('../controller/place_recommendation');
 
 // CREATE USER - POST
 // router.post('/', PythonController.sendToPython);
 
 // GET ALL PLACES
-router.get('/places', validateToken, PythonController.getAllPlaces);
+router.get('/places', validateToken, PlaceRecommendationController.getAllPlaces);
 
 // GET ALL CITY
 // router.get('/cities/', validateToken, PythonController.getCity)
@@ -23,10 +23,10 @@ router.get('/places', validateToken, PythonController.getAllPlaces);
 // router.get('/cities/:city_id/places/:place_id', validateToken, PythonController.getPlaceDetail)
 
 // GET PLACE WITH DISTANCE RECOMMENDATION
-router.post('/places/nearby', validateToken, PythonController.getPlaceByDistance);
+router.post('/places/nearby', validateToken, PlaceRecommendationController.getPlaceByDistance);
 
 // GET PLACE WITH RATING
-router.post('/places/top', validateToken, PythonController.getPlaceByRating);
+router.post('/places/top', validateToken, PlaceRecommendationController.getPlaceByRating);
 
 // GET ALL GUIDER
 // router.get('/guiders/', validateToken, PythonController.getAllGuiders)
