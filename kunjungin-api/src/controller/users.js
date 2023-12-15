@@ -251,7 +251,7 @@ const authLogin = async (req, res) => {
 };
 
 const registerUser = async (req, res) => {
-  const {email, password} = req.body;
+  const {email, password, city_id, name, address} = req.body;
 
   const user = await prisma.user.findUnique({
     where: {
@@ -275,13 +275,13 @@ const registerUser = async (req, res) => {
       prisma.user.create({
         data: {
           email: email,
-          name: req.body.name,
+          name: name,
           password: hash,
           rating: 0,
-          address: req.body.address,
+          address: address,
           user_id: userId,
           // city_id: req.body.city_id,
-          city_id: 1,
+          city_id: city_id,
         },
       }).then(() => {
         res.status(201).json({
@@ -339,13 +339,12 @@ const loginUser = async (req, res)=> {
           loginResult: {
             userId: user.id,
             name: user.name,
+            city_id: user.city_id,
             token: accessTokens,
           },
         });
       }
     });
-
-    // res.json('login')
   }
 };
 
