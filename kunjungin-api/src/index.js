@@ -6,7 +6,7 @@ const morgan = require('morgan');
 const userRoutes = require('./routes/users');
 
 const placeRecommendationRoutes = require('./routes/place_recommendation');
-const userRecommendationRoutes = require('./routes/recommendation');
+const userRecommendationRoutes = require('./routes/user_recommendation');
 
 const googleAuthRoutes = require('./routes/googleAuth');
 const {google} = require('googleapis');

@@ -81,7 +81,8 @@ Used to Create / Register User.
   "name":"[valid name]",
   "email": "[valid email address]",
   "password": "[password in plain text]",
-  "address": "[valid address]"
+  "address": "[valid address]",
+  "city_id": "[valid city]"
 }
 ```
 

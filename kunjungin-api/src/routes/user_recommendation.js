@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const {validateToken} = require('../config/jwt');
 
-const RecommendationController = require('../controller/recommendation');
+const RecommendationController = require('../controller/user_recommendation');
 
 // ADD RECOMMENDATION TO USER
 router.post('/:id/recommendation', validateToken,
