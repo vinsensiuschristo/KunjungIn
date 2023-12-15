@@ -23,10 +23,10 @@ router.get('/places', validateToken, PythonController.getAllPlaces);
 // router.get('/cities/:city_id/places/:place_id', validateToken, PythonController.getPlaceDetail)
 
 // GET PLACE WITH DISTANCE RECOMMENDATION
-router.post('/places/nearby', validateToken, PythonController.getPlaceNearby);
+router.post('/places/nearby', validateToken, PythonController.getPlaceByDistance);
 
 // GET PLACE WITH RATING
-// router.get('/places/rating', validateToken, PythonController.getRating)
+router.post('/places/top', validateToken, PythonController.getPlaceByRating);
 
 // GET ALL GUIDER
 // router.get('/guiders/', validateToken, PythonController.getAllGuiders)

@@ -32,6 +32,9 @@ connection = mysql.connector.connect(
 
 app = Flask(__name__)
 
+ # Create SQLAlchemy engine
+engine = create_engine(f'mysql+mysqlconnector://{DATABASE_USER}:{DATABASE_PASSWORD}@{DATABASE_HOST}/{DATABASE_NAME}')
+
 # Fungsi untuk melakukan validasi token
 def validate_token(token):
     try:
@@ -46,11 +49,11 @@ def validate_token(token):
 # Tambahkan middleware untuk menangani tipe konten JSON
 @app.before_request
 def before_request():
-    print('before_request')
+    # print('before_request')
 
     token = request.headers.get('Authorization', '').split('Bearer ')[-1]
-    print(request.headers.get('Authorization', ''))
-    print(token)
+    # print(request.headers.get('Authorization', ''))
+    # print(token)
     # # Validasi content type sebelum memproses permintaan
     # if request.headers['Content-Type'] != 'application/json':
     #     return jsonify({'error': 'Content-Type must be application/json'}), 415
@@ -64,8 +67,8 @@ def before_request():
     if 'error' in validation_result:
         return jsonify(validation_result), 401
     
-@app.route('/place-nearby', methods=['POST'])
-def place_nearby():
+@app.route('/recommend-distance', methods=['POST'])
+def recommend_distance():
     try:
         data_received = request.get_json()
          # Extract user location information
@@ -73,16 +76,15 @@ def place_nearby():
         place_name = data_received.get('PlaceName', '')
         latitude = data_received.get('latitude', 0.0)
         longitude = data_received.get('longitude', 0.0)
+        city_id = data_received.get('city_id', 0)
 
-        # Create SQLAlchemy engine
-        engine = create_engine(f'mysql+mysqlconnector://{DATABASE_USER}:{DATABASE_PASSWORD}@{DATABASE_HOST}/{DATABASE_NAME}')
+        # Read data from MySQL using SQLAlchemy engine
+        query = f"SELECT * FROM historical_place where city_id ={city_id}"
+        df = pd.read_sql(query, engine)
 
         # Function for recommending tourist destinations based on distance user:
         def recommend(place_name, user_location):
-            # Read data from MySQL using SQLAlchemy engine
-            query = "SELECT * FROM historical_place"
-            df = pd.read_sql(query, engine)
-
+            
             # Convert the place_name and user_location to lowercase
             place_name = place_name.lower()
 
@@ -117,7 +119,55 @@ def place_nearby():
     except Exception as e:
         print('Error processing data:', str(e))
         return jsonify({"error": "Internal server error"}), 500
-    
+
+# ...
+
+@app.route('/recommend-rating', methods=['POST'])
+def recommend_rating():
+    try:
+        data_received = request.get_json()
+
+        place_name = data_received.get('PlaceName', '')
+        types = data_received.get('types', '')
+        city_id = data_received.get('city_id', 0)
+
+        # Read data from MySQL using SQLAlchemy engine
+        query = f"SELECT * FROM historical_place where city_id ={city_id}"
+        df = pd.read_sql(query, engine)
+
+        # Matching the types with the dataset and reset the index
+        category = df['types']
+        City = df['city_id']
+
+        def calculate_similarity(row):
+            place_types = row['types']
+            return 1 if types == place_types else 0
+
+        df['similarity'] = df.apply(calculate_similarity, axis=1)
+
+        # Filter places with the same types
+        filtered_df = df[df['similarity'] == 1]
+
+        # Calculate the cosine similarity between place_name and names in the dataset
+        tf = TfidfVectorizer(analyzer='word', ngram_range=(2, 2), min_df=1, stop_words='english')
+        tfidf_matrix = tf.fit_transform(filtered_df['name'])
+        similarity_scores = cosine_similarity(tf.transform([place_name]), tfidf_matrix).flatten()
+
+        # Get the indices of the most similar places
+        similar_indices = similarity_scores.argsort()[::-1][:5]
+
+        # Get the top 5 recommendations
+        rec = filtered_df[['name', 'types', 'rating']].iloc[similar_indices]
+        rec = rec.sort_values(by='rating', ascending=False)
+
+        # Convert the DataFrame to a list of dictionaries
+        result_data = rec.to_dict(orient='records')
+
+        return jsonify(result_data)
+    except Exception as e:
+        print('Error processing data:', str(e))
+        return jsonify({"error": "Internal server error"}), 500
+
 @app.route('/places', methods=['GET'])
 def get_places():
     try:

@@ -2,7 +2,7 @@
 // const bodyParser = require('body-parser');
 const axios = require('axios');
 
-const getPlaceNearby = async (req, res, next) => {
+const getPlaceByDistance = async (req, res, next) => {
   // console.log('welcome to python');
 
   const existToken = req.cookies['token'];
@@ -11,12 +11,46 @@ const getPlaceNearby = async (req, res, next) => {
   try {
     const dataToSend = req.body;
     // const dataToSend = {
-    //   PlaceName: 'Museum',
-    //   latitude: -7.760882,
-    //   longitude: 110.415348,
+    // "PlaceName": "Museum",
+    // "latitude" : -6.5980046,
+    // "longitude" : 106.7948917,
+    // "city_id" : 8
     // };
     // Kirim data JSON ke aplikasi Python dengan mengatur header Content-Type
-    const pythonResponse = await axios.post('https://kunjungin-python-dot-kunjunginapp.et.r.appspot.com/place-nearby', dataToSend, {
+    const pythonResponse = await axios.post('http://127.0.0.1:5000/recommend-distance', dataToSend, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + existToken,
+      },
+    });
+
+    console.log('Response from Python:', pythonResponse.data);
+
+    // Kirim respons dari Python kembali ke client (Express.js)
+    res.json({
+      message: 'Data processed successfully', result: pythonResponse.data,
+    });
+  } catch (error) {
+    console.error('Error communicating with Python:', error.message);
+    res.status(500).json({error: 'Internal server error'});
+  }
+};
+
+const getPlaceByRating = async (req, res, next) => {
+  // console.log('welcome to python');
+
+  const existToken = req.cookies['token'];
+  console.log(existToken);
+
+  try {
+    const dataToSend = req.body;
+    // const dataToSend = {
+    // "PlaceName": "Museum",
+    // "types": "museum|tourist_attraction|point_of_interest|establishment",
+    // "city_id" : 8
+    // };
+    // Kirim data JSON ke aplikasi Python dengan mengatur header Content-Type
+    const pythonResponse = await axios.post('http://127.0.0.1:5000/recommend-rating', dataToSend, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + existToken,
@@ -59,4 +93,4 @@ const getAllPlaces = async (req, res, next) => {
   }
 };
 
-module.exports = {getAllPlaces, getPlaceNearby};
+module.exports = {getAllPlaces, getPlaceByDistance, getPlaceByRating};
