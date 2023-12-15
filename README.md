@@ -2,6 +2,11 @@
 
 <h1>REST API Documentation</h1>
 
+### Base URL for NodeJS App Engine : `https://kunjungin-api-dot-kunjunginapp.et.r.appspot.com/`
+### Base URL for Python App Engine : `https://kunjungin-python-dot-kunjunginapp.et.r.appspot.com/`
+
+_______
+
 # Login
 
 Used to collect a Token for a registered User.
