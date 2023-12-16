@@ -111,21 +111,18 @@
                 android:textColor="@color/white"
                 android:textSize="16sp" />
 
-            <AutoCompleteTextView
-                android:id="@+id/address_auto_complete"
+            <Spinner
+                android:id="@+id/city_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:textSize="16sp"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/edit_text_background"
-                android:completionThreshold="1"
-                android:dropDownVerticalOffset="10dp"
-                android:fontFamily="@font/poppins_regular"
-                android:hint="@string/select_city"
-                android:paddingTop="8dp"
                 android:layout_marginBottom="10dp"
+                android:background="@drawable/edit_text_background"
+                android:fontFamily="@font/poppins_regular"
+                android:prompt="@string/select_city"
                 android:paddingStart="15dp"
-                android:paddingEnd="15dp"/>
+                android:paddingEnd="15dp"
+                android:textSize="16sp"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -155,8 +152,8 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:placeholderText="@string/password"
                 app:endIconMode="password_toggle"
+                app:placeholderText="@string/password"
                 app:placeholderTextColor="@color/grey">
 
                 <com.bangkit.kunjungin.ui.viewmodels.PasswordValidationEditText

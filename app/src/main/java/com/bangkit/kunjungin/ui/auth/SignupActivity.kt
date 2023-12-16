@@ -8,7 +8,7 @@ import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -59,6 +59,7 @@ class SignupActivity : AppCompatActivity() {
         City(32, "Kota Wonogiri"),
         City(33, "Kota Klaten")
     )
+    private lateinit var citySpinner: Spinner
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,9 +80,12 @@ class SignupActivity : AppCompatActivity() {
         signupTextView.text = spannableString
         signupTextView.movementMethod = LinkMovementMethod.getInstance()
 
-        val autoCompleteTextView: AutoCompleteTextView = binding.addressAutoComplete
-        val adapter = ArrayAdapter(this@SignupActivity, android.R.layout.simple_dropdown_item_1line, city.map { it.name })
-        autoCompleteTextView.setAdapter(adapter)
+        citySpinner = findViewById(R.id.city_spinner)
+
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, city.map { it.name })
+        adapter.insert("Pilih Kota", 0)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        citySpinner.adapter = adapter
 
         setupAction()
     }
@@ -93,11 +97,8 @@ class SignupActivity : AppCompatActivity() {
                 val emailIsEmpty = email.text!!.isEmpty()
                 val addressIsEmpty = address.text!!.isEmpty()
                 val passwordIsEmpty = password.text!!.isEmpty()
-                val selectedCityIsEmpty = addressAutoComplete.text.isEmpty()
+                val selectedCity = citySpinner.selectedItem.toString()
 
-                if (selectedCityIsEmpty) {
-                    addressAutoComplete.error = binding.root.context.getString(R.string.required_field)
-                }
                 if (usernameIsEmpty) {
                     username.error = binding.root.context.getString(R.string.required_field)
                 }
@@ -110,7 +111,12 @@ class SignupActivity : AppCompatActivity() {
                 if (passwordIsEmpty) {
                     password.error = binding.root.context.getString(R.string.required_field)
                 }
-                if (!usernameIsEmpty && !emailIsEmpty && !addressIsEmpty && !passwordIsEmpty && !selectedCityIsEmpty) {
+                if (selectedCity == "Pilih Kota") {
+                    Toast.makeText(this@SignupActivity, R.string.choose_city_prompt, Toast.LENGTH_SHORT).show()
+                    (citySpinner.selectedView as? TextView)?.error = getString(R.string.required_field)
+                    return@setOnClickListener
+                }
+                if (!usernameIsEmpty && !emailIsEmpty && !addressIsEmpty && !passwordIsEmpty) {
                     postData()
                     showLoading()
                     showToast()
@@ -122,15 +128,19 @@ class SignupActivity : AppCompatActivity() {
 
     private fun postData() {
         binding.apply {
-            val selectedCity = city.find { it.name == addressAutoComplete.text.toString() }
-            val cityId = selectedCity?.id ?: 0
-            signupViewModel.postSignup(
-                username.text.toString(),
-                email.text.toString(),
-                address.text.toString(),
-                password.text.toString(),
-                cityId
-            )
+            val selectedCityName = citySpinner.selectedItem.toString()
+            val selectedCity = city.find { it.name == selectedCityName }
+
+            if (selectedCity != null) {
+                val cityId = selectedCity.id
+                signupViewModel.postSignup(
+                    username.text.toString(),
+                    email.text.toString(),
+                    address.text.toString(),
+                    password.text.toString(),
+                    cityId
+                )
+            }
         }
     }
 

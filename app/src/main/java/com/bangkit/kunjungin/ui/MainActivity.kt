@@ -38,8 +38,6 @@ class MainActivity : AppCompatActivity() {
             if (!it.isLogin) {
                 startActivity(Intent(this, LoginActivity::class.java))
                 finish()
-            } else {
-//                setupData()
             }
         }
     }

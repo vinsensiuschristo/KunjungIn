@@ -79,7 +79,8 @@ class LoginActivity : AppCompatActivity() {
             binding.apply {
                 val email = email.text.toString()
                 val token = response.loginResult?.token.toString()
-                saveSession(UserModel(email, token, true))
+                val name = response.loginResult?.name.toString()
+                saveSession(UserModel(email, token, name, true))
             }
         }
     }

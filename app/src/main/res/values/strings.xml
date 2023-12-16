@@ -33,4 +33,11 @@
     <string name="address">Alamat</string>
     <string name="required_field">Tidak boleh dikosongkan</string>
     <string name="select_city">Pilih Kota</string>
+    <string name="choose_city_prompt">Tolong pilih salah satu kota</string>
+    <string name="hello">Halo</string>
+    <string name="exclamation">!</string>
+    <string name="change_profile">Ubah Profil</string>
+    <string name="setting">Pengaturan</string>
+    <string name="logout">Keluar</string>
+    <string name="logo">Logo</string>
 </resources>
