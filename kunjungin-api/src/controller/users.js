@@ -319,6 +319,11 @@ const loginUser = async (req, res)=> {
   // (KALAU ADA)
   if (user) {
     const dbPassword = user.password;
+
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+
     bcrypt.compare(password, dbPassword).then((match) => {
       if (!match) {
         res.status(401).json({
@@ -340,7 +345,8 @@ const loginUser = async (req, res)=> {
             userId: user.id,
             name: user.name,
             city_id: user.city_id,
-            token: accessTokens,
+            token: `token=${accessTokens}; Path=/; HttpOnly; ` +
+                `Expires:${tomorrow.toGMTString()};`,
           },
         });
       }
