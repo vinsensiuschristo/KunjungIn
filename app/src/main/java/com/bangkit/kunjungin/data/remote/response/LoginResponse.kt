@@ -11,5 +11,6 @@ data class LoginResponse(
 data class LoginResult(
     @SerializedName("userId") val id: Int,
     @SerializedName("name") val name: String,
+    @SerializedName("city_id") val cityId: Int,
     @SerializedName("token") val token: String,
 )

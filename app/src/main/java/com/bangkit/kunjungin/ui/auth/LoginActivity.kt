@@ -80,7 +80,8 @@ class LoginActivity : AppCompatActivity() {
                 val email = email.text.toString()
                 val token = response.loginResult?.token.toString()
                 val name = response.loginResult?.name.toString()
-                saveSession(UserModel(email, token, name, true))
+                val cityId = response.loginResult?.cityId!!.toInt()
+                saveSession(UserModel(email, token, name, cityId,true))
             }
         }
     }

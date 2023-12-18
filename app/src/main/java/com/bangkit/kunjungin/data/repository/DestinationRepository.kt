@@ -7,10 +7,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import com.bangkit.kunjungin.data.local.pref.DataLogin
 import com.bangkit.kunjungin.data.local.pref.DataSignup
+import com.bangkit.kunjungin.data.local.pref.NearbyPlacesRequest
 import com.bangkit.kunjungin.data.local.pref.UserModel
 import com.bangkit.kunjungin.data.local.pref.UserPreferences
 import com.bangkit.kunjungin.data.remote.networking.ApiService
 import com.bangkit.kunjungin.data.remote.response.LoginResponse
+import com.bangkit.kunjungin.data.remote.response.NearbyPlacesResponse
 import com.bangkit.kunjungin.data.remote.response.SignupResponse
 import com.bangkit.kunjungin.utils.Event
 import org.json.JSONObject
@@ -34,6 +36,8 @@ class DestinationRepository private constructor(
     private val _loginResponse = MutableLiveData<LoginResponse>()
     val loginResponse: LiveData<LoginResponse> = _loginResponse
 
+    private val _nearbyPlacesResponse = MutableLiveData<NearbyPlacesResponse>()
+    val nearbyPlacesResponse: LiveData<NearbyPlacesResponse> = _nearbyPlacesResponse
 
     suspend fun saveSession(user: UserModel) {
         userPreferences.saveSession(user)
@@ -51,7 +55,7 @@ class DestinationRepository private constructor(
         userPreferences.logout()
     }
 
-    fun postSignup(name: String, email: String,  address: String, password: String, city: Int) {
+    fun postSignup(name: String, email: String, address: String, password: String, city: Int) {
         val signupRequest = DataSignup(email, name, password, address, city)
         _loading.value = true
         val client = apiService.postSignup(signupRequest)
@@ -76,10 +80,13 @@ class DestinationRepository private constructor(
                                 _toast.value = Event("Bad Request: Failed to parse error message")
                             }
                         }
+
                         409 -> {
                             // Account already exists error
-                            _toast.value = Event("Account already exists. Please use a different email or try logging in.")
+                            _toast.value =
+                                Event("Account already exists. Please use a different email or try logging in.")
                         }
+
                         else -> {
                             // Other error
                             _toast.value = Event(response.message().toString())
@@ -112,10 +119,12 @@ class DestinationRepository private constructor(
                             // Invalid password error
                             Event("Invalid password. Please check your password and try again.")
                         }
+
                         404 -> {
                             // Account not found error
                             Event("Account not found. Please register an account.")
                         }
+
                         else -> {
                             // Other error
                             Event(response.message().toString())
@@ -133,6 +142,36 @@ class DestinationRepository private constructor(
         })
     }
 
+    fun getNearbyPlaces(placeName: String, latitude: String, longitude: String, cityId: Int, token: String) {
+        val nearbyPlacesRequest = NearbyPlacesRequest(placeName, latitude, longitude, cityId)
+        _loading.value = true
+        Log.d("NearbyPlaces", "Token: $token")
+        val client = apiService.getNearbyPlaces("$token", nearbyPlacesRequest)
+        client.enqueue(object : Callback<NearbyPlacesResponse> {
+            override fun onResponse(call: Call<NearbyPlacesResponse>, response: Response<NearbyPlacesResponse>) {
+                if (response.isSuccessful && response.body() != null) {
+                    _toast.value = Event(response.body()?.message.toString())
+                    _nearbyPlacesResponse.value = response.body()
+                    Log.d("NearbyPlaces", "API call successful")
+                    Log.d("NearbyPlaces", "Response: ${response.body()}")
+                } else {
+                    Event(response.message().toString())
+                    Log.e("NearbyPlaces", "API call unsuccessful")
+                    Log.e("NearbyPlaces", "Error message: ${response.message()}")
+                    Log.e("NearbyPlaces", "Error body: ${response.errorBody()?.string()}")
+
+                }
+                _loading.value = false
+            }
+
+            override fun onFailure(call: Call<NearbyPlacesResponse>, t: Throwable) {
+                _loading.value = false
+                _toast.value = Event(t.message.toString())
+                Log.e(ContentValues.TAG, "onFailure: ${t.message.toString()}")
+            }
+
+        })
+    }
 
     companion object {
         @Volatile

@@ -40,4 +40,7 @@
     <string name="setting">Pengaturan</string>
     <string name="logout">Keluar</string>
     <string name="logo">Logo</string>
+    <string name="recommendation_headline">Rekomendasi Untukmu</string>
+    <string name="recommendation_desc1">Wisata Sejarah Paling Dekat dengan Tempatmu</string>
+    <string name="image">Gambar</string>
 </resources>

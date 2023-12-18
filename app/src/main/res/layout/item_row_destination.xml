@@ -14,8 +14,7 @@
 
     <FrameLayout
         android:layout_width="230dp"
-        android:layout_height="170dp"
-        android:padding="8dp">
+        android:layout_height="170dp">
 
         <ImageView
             android:id="@+id/destination_image"
@@ -25,22 +24,23 @@
             android:layout_marginTop="4dp"
             android:layout_marginEnd="1dp"
             android:transitionName="profile"
+            android:contentDescription="@string/image"
             tools:srcCompat="@tools:sample/avatars" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#60000000" />
+            android:background="#99000000" />
 
         <TextView
             android:id="@+id/location_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|start"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="28dp"
             android:fontFamily="@font/poppins_medium"
             android:text="@string/location_name"
             android:textColor="@android:color/white"
@@ -52,14 +52,15 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|start"
             android:layout_marginStart="16dp"
+            android:layout_marginBottom="5dp"
             android:layout_marginTop="4dp"
             android:fontFamily="@font/poppins_medium"
             android:text="@string/distance_to_location"
-            android:drawableLeft="@drawable/navigation"
             android:drawableTint="@color/white"
             android:drawablePadding="5dp"
             android:textColor="@android:color/white"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            card_view:drawableLeftCompat="@drawable/navigation" />
 
     </FrameLayout>
 </androidx.cardview.widget.CardView>
