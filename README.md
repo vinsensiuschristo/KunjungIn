@@ -381,3 +381,44 @@ Used to get a list of historical places around the user location based on highes
 }
 ```
 _______
+
+# Place Details
+
+Used to get a details of historical places.
+
+**URL** : `/api/v1/placeRecommendation/places/:id`
+
+**Method** : `GET`
+
+**Auth required** : YES
+
+## Success Response
+
+**Code** : `200 OK`
+
+**Content example**
+
+```json
+{
+    "error": false,
+    "message": "Data processed successfully",
+    "result": {
+        "id": 5,
+        "name": "Gereja Katedral Santa Perawan Maria Ratu Rosario Suci",
+        "description": "Early 20th-century Roman Catholic cathedral with grand dome & arch features, plus a small courtyard.",
+        "address": "Jl. Pandanaran No.9, Randusari, Kec. Semarang Sel., Kota Semarang, Jawa Tengah 50244, Indonesia",
+        "latitude": "-6.985479700000001",
+        "longitude": "110.4098457",
+        "city_id": 4,
+        "opening_hours": "Monday: 8:00 AM – 6:00 PM|Tuesday: 8:00 AM – 6:00 PM|Wednesday: 8:00 AM – 6:00 PM|Thursday: 8:00 AM – 6:00 PM|Friday: 8:00 AM – 6:00 PM|Saturday: 8:00 AM – 6:00 PM|Sunday: 8:00 AM – 6:00 PM",
+        "rating": "4.8",
+        "user_rating": 3592,
+        "types": "tourist_attraction|church|place_of_worship|point_of_interest|establishment",
+        "phone_number": "(024) 8310036",
+        "createdAt": "2023-10-13T21:38:52.000Z",
+        "updatedAt": "2023-10-13T21:38:52.000Z",
+        "photo_reference": "ATJ83zg_bbWpxhzvcdU6E0zEWmXoIK-GRNjhysYp_w4HncVJqGx6KdkB5JA9VAZcPqL2NcmKPMxWkrjRp96ajDg53vWrWFnnp23TvQ2M6N4F5HGC0KetSS_ojw4Aj7ANSfmxC-dVsOuuC0WsGJR1p_LmmqmLT3NQXe6_Gb_YmZMFITciHHG6"
+    }
+}
+```
+_______
