@@ -29,7 +29,7 @@ router.get('/places/:id', validateToken, PlaceRecommendationController.getDetail
 router.post('/places/nearby', validateToken, PlaceRecommendationController.getPlaceByDistance);
 
 // GET PLACE WITH RATING
-router.post('/places/top', validateToken, PlaceRecommendationController.getPlaceByRating);
+router.post('/places/rating', validateToken, PlaceRecommendationController.getPlaceByRating);
 
 // GET ALL GUIDER
 // router.get('/guiders/', validateToken, PythonController.getAllGuiders)

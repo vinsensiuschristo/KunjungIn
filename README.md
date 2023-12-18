@@ -288,6 +288,7 @@ Used to get a list of historical places nearby the user location.
     "result": [
         {
             "distance": 0.07054605348299524,
+            "id": 834,
             "name": "Museum Kepresidenan Balai Kirti",
             "photo_reference": "ATJ83ziSIi0n9NfWYfEF9-ER4Y5gDhzIX8RWm9EOLggqQJ49e7ldZKGENIWUVBrLnuA3KUZXu1YVwZzW3b8_gDxu-FlSn_USc77KGgCU60-K8w4cPxk0UrQTNPFQgcALrmj_XiJlcKsgSaTRsFJRRrudfFIFapuTB25C12-B0YZs3IK3lnlr",
             "rating": 4.7,
@@ -295,6 +296,7 @@ Used to get a list of historical places nearby the user location.
         },
         {
             "distance": 0.16097798593307444,
+            "id": 29,
             "name": "Indonesian Museum of Ethnobotany",
             "photo_reference": "ATJ83zgKN8-RFxFcKsPMmQ5cGzEPQPTO8vjbgHu4rOIdRwJwmZuzp-BnMShdrhV3ZU4ZSOC_DRxzeZOvTk-iXnd7QOEPIiDUNeT3w81FSKMPbeM24oXKm-AseEIHkAS64Mr7tXsZDivopfRukFcZkfEFvYTj17AdU7rLoIuzlRYF2XePfDAr",
             "rating": 4.6,
@@ -302,6 +304,7 @@ Used to get a list of historical places nearby the user location.
         },
         {
             "distance": 0.713848081408731,
+            "id": 235,
             "name": "Museum Tanah dan Pertanian",
             "photo_reference": "ATJ83zgDYYH6iBw5Pu5mgBP64rseEefindzMPaZwxvY2xZsUzlrGCHTivCNd7uCRsti2v74RqubigRuSjkahFQbozJZ2A0D7jj4xRi06-fV88cYgEIhmwXgngDs34Ywwg2tcOekn6L1r1JF0SmQUjsEeKGTqFplMmuHxiRw50Iomiu40_OrO",
             "rating": 4.7,
@@ -317,7 +320,7 @@ _______
 
 Used to get a list of historical places around the user location based on highest rating.
 
-**URL** : `/api/v1/placeRecommendation/places/top`
+**URL** : `/api/v1/placeRecommendation/places/rating`
 
 **Method** : `POST`
 
@@ -354,18 +357,21 @@ Used to get a list of historical places around the user location based on highes
   "message": "Data processed successfully",
     "result": [
         {
+            "id": 4,
             "name": "Perpustakaan BBalitvet",
             "photo_reference": "ATJ83zhwny_FutwnEqwLix0TivFzPPuy1xWbuyypELpoKDgPU2yDhoi05O2D3Sl-__qSEYQcMEbtY-ZgNk45sdO6-GIZ3tWHJf_b6t0qn5RGmbdsKEDTanD6aZHKOPJucLXs6KSi0KsQ-nv_QTurC0fPi2EPlK0Pb2-vlN7hUZVxdkoveWcE",
             "rating": 4.8,
             "types": "museum|tourist_attraction|point_of_interest|establishment"
         },
         {
+            "id": 235,
             "name": "Museum Tanah dan Pertanian",
             "photo_reference": "ATJ83zgDYYH6iBw5Pu5mgBP64rseEefindzMPaZwxvY2xZsUzlrGCHTivCNd7uCRsti2v74RqubigRuSjkahFQbozJZ2A0D7jj4xRi06-fV88cYgEIhmwXgngDs34Ywwg2tcOekn6L1r1JF0SmQUjsEeKGTqFplMmuHxiRw50Iomiu40_OrO",
             "rating": 4.7,
             "types": "museum|tourist_attraction|point_of_interest|establishment"
         },
         {
+            "id": 834,
             "name": "Museum Kepresidenan Balai Kirti",
             "photo_reference": "ATJ83ziSIi0n9NfWYfEF9-ER4Y5gDhzIX8RWm9EOLggqQJ49e7ldZKGENIWUVBrLnuA3KUZXu1YVwZzW3b8_gDxu-FlSn_USc77KGgCU60-K8w4cPxk0UrQTNPFQgcALrmj_XiJlcKsgSaTRsFJRRrudfFIFapuTB25C12-B0YZs3IK3lnlr",
             "rating": 4.7,

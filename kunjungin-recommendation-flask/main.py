@@ -157,7 +157,7 @@ def recommend_rating():
         similar_indices = similarity_scores.argsort()[::-1][:5]
 
         # Get the top 5 recommendations
-        rec = filtered_df[['name', 'types', 'rating', 'photo_reference']].iloc[similar_indices]
+        rec = filtered_df[['id','name', 'types', 'rating', 'photo_reference']].iloc[similar_indices]
         rec = rec.sort_values(by='rating', ascending=False)
 
         # Convert the DataFrame to a list of dictionaries
