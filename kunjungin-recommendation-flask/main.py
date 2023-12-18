@@ -104,7 +104,7 @@ def recommend_distance():
             df['distance'] = df.apply(calculate_distance, axis=1)
 
             # Combine similarity and distance to rank recommendations
-            rec = df[['name', 'types', 'distance', 'rating', 'photo_reference']].iloc[similar_indices]
+            rec = df[['id','name', 'types', 'distance', 'rating', 'photo_reference']].iloc[similar_indices]
             rec = rec.sort_values(by=['distance', 'rating'], ascending=[True, False])
 
              # Convert the DataFrame to a list of dictionaries

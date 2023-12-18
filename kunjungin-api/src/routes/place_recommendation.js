@@ -10,6 +10,9 @@ const PlaceRecommendationController = require('../controller/place_recommendatio
 // GET ALL PLACES
 router.get('/places', validateToken, PlaceRecommendationController.getAllPlaces);
 
+// GET ALL PLACES
+router.get('/places/:id', validateToken, PlaceRecommendationController.getDetailPlaces);
+
 // GET ALL CITY
 // router.get('/cities/', validateToken, PythonController.getCity)
 
