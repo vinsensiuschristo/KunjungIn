@@ -29,6 +29,15 @@ const createRecommendation = async (req, res) =>{
       },
     });
 
+    await prisma.user.update({
+      where: {
+        id: newId,
+      },
+      data: {
+        recommendation_status: true,
+      },
+    });
+
     res.status(201).json({
       error: false,
       message: 'Recommendation for user ' + req.params.id + ' has been created',
@@ -40,6 +49,7 @@ const createRecommendation = async (req, res) =>{
     });
   }
 };
+
 
 const deleteRecommendation = (req, res)=> {
   console.log('deleteRecommendation');
