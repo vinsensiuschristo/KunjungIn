@@ -19,7 +19,7 @@ const getPlaceByDistance = async (req, res, next) => {
     // "city_id" : 8
     // };
     // Kirim data JSON ke aplikasi Python dengan mengatur header Content-Type
-    const pythonResponse = await axios.post('http://localhost:5000/recommend-distance', dataToSend, {
+    const pythonResponse = await axios.post('https://kunjungin-python-dot-kunjunginapp.et.r.appspot.com/recommend-distance', dataToSend, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + existToken,
