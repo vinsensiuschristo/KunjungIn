@@ -8,19 +8,20 @@ datasource db {
 }
 
 model user {
-  id              Int                  @id @default(autoincrement())
-  email           String               @unique
-  name            String
-  password        String
-  date_of_birth   DateTime?
-  address         String
-  rating          Float
-  createdAt       DateTime             @default(now())
-  updatedAt       DateTime             @updatedAt
-  user_id         String               @unique
-  city_id         Int
-  city            city                 @relation(fields: [city_id], references: [id])
-  recommendations user_recommendation?
+  id                    Int                  @id @default(autoincrement())
+  email                 String               @unique
+  name                  String
+  password              String
+  date_of_birth         DateTime?
+  address               String
+  rating                Float
+  createdAt             DateTime             @default(now())
+  updatedAt             DateTime             @updatedAt
+  user_id               String               @unique
+  city_id               Int
+  recommendation_status Boolean              @default(false)
+  city                  city                 @relation(fields: [city_id], references: [id])
+  recommendations       user_recommendation?
 
   @@index([city_id], map: "user_city_id_fkey")
 }
