@@ -48,7 +48,7 @@ Used to collect a Token for a registered User.
   "loginResult": {
     "userId": 1,
     "name": "dummy",
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImR1bW15QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE3MDI1MjcxNjB9.2JlYeusUZC3GZOJAzKegPLmdyAR5dpJsmE1oesJdkKg"
+    "token": "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5ld3Rhc2tAZ21haWwuY29tIiwiaWQiOjMwLCJpYXQiOjE3MDI4Nzc0NTV9.PoL4VJxpftxcmi7BSAJnuVmlggY93EUebzNtz0nA4VQ; Path=/; HttpOnly; Expires:Tue, 19 Dec 2023 05:30:55 GMT;"
   }
 }
 ```
@@ -167,8 +167,6 @@ Used to Get all the Users.
 ```
 _______
 
-
-
 # Update User
 
 Used to Update User.
@@ -259,8 +257,8 @@ Used to get a list of historical places nearby the user location.
 ```json
 {
   "PlaceName":"[hint for place name]",
-  "latitude": "[user latitude position locatin]",
-  "longitude": "[user longitude position locatin]",
+  "latitude": "[user latitude position location]",
+  "longitude": "[user longitude position location]",
   "city_id": "[city id]"
 }
 ```
@@ -314,7 +312,6 @@ Used to get a list of historical places nearby the user location.
 }
 ```
 _______
-
 
 # Place Recommendation By Rating
 
@@ -419,6 +416,46 @@ Used to get a details of historical places.
         "updatedAt": "2023-10-13T21:38:52.000Z",
         "photo_reference": "ATJ83zg_bbWpxhzvcdU6E0zEWmXoIK-GRNjhysYp_w4HncVJqGx6KdkB5JA9VAZcPqL2NcmKPMxWkrjRp96ajDg53vWrWFnnp23TvQ2M6N4F5HGC0KetSS_ojw4Aj7ANSfmxC-dVsOuuC0WsGJR1p_LmmqmLT3NQXe6_Gb_YmZMFITciHHG6"
     }
+}
+```
+_______
+
+# Add User Recommendation
+
+Used to add a destination type that will determine the recommended destination type according to the user's wishes.
+
+**URL** : `/api/v1/userRecommendation/:id/recommendation`
+
+**Method** : `POST`
+
+**Auth required** : NO
+
+**Data constraints**
+
+```json
+{
+  "place_type_id": ["valid place_type_id","valid place_type_id","valid place_type_id"]
+}
+```
+
+**Data example**
+
+```json
+{
+  "place_type_id": ["2","3","4"]
+}
+```
+
+## Success Response
+
+**Code** : `200 OK`
+
+**Content example**
+
+```json
+{
+  "error": false,
+  "message": "Recommendation for user {idUser} has been created"
 }
 ```
 _______
