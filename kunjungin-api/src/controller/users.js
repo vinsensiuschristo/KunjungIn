@@ -320,9 +320,9 @@ const loginUser = async (req, res)=> {
   if (user) {
     const dbPassword = user.password;
 
-    const today = new Date();
-    const tomorrow = new Date(today);
-    tomorrow.setDate(today.getDate() + 1);
+    // const today = new Date();
+    // const tomorrow = new Date(today);
+    // tomorrow.setDate(today.getDate() + 1);
 
     bcrypt.compare(password, dbPassword).then((match) => {
       if (!match) {
@@ -345,8 +345,8 @@ const loginUser = async (req, res)=> {
             userId: user.id,
             name: user.name,
             city_id: user.city_id,
-            token: `token=${accessTokens}; Path=/; HttpOnly; ` +
-                `Expires:${tomorrow.toGMTString()};`,
+            recommendation_status: user.recommendation_status,
+            token: `token=${accessTokens}`,
           },
         });
       }
