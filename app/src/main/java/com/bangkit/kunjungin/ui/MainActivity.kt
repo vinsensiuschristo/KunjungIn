@@ -54,11 +54,6 @@ class MainActivity : AppCompatActivity() {
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         val selectedTypes = intent.getParcelableArrayListExtra<PlaceType>("selectedTypes")
-        selectedTypes?.let {
-            for (placeType in it) {
-                Log.d("MainActivity", "Selected Type: ${placeType.name}, ID: ${placeType.id}")
-            }
-        }
         setupUser()
         requestPermission()
 
@@ -74,12 +69,15 @@ class MainActivity : AppCompatActivity() {
         }
         fusedLocationProviderClient.lastLocation.addOnCompleteListener { task ->
             val location: Location? = task.result
+            val selectedTypes = intent.getParcelableArrayListExtra<PlaceType>("selectedTypes")
+            val randomPlaceType = selectedTypes?.shuffled()?.first()
+            val selectedPlaceTypeName = randomPlaceType?.name
             if (location == null) {
                 newLocationData()
             } else {
                 Log.d("Debug:", "Your Location:" + location.longitude)
                 mainViewModel.getNearbyPlaces(
-                    "Museum",
+                    selectedPlaceTypeName.toString(),
                     location.latitude.toString(),
                     location.longitude.toString(),
                     cityId,
