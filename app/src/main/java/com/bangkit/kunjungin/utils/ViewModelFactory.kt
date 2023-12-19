@@ -8,6 +8,7 @@ import com.bangkit.kunjungin.di.Injection
 import com.bangkit.kunjungin.ui.MainViewModel
 import com.bangkit.kunjungin.ui.auth.LoginViewModel
 import com.bangkit.kunjungin.ui.auth.SignupViewModel
+import com.bangkit.kunjungin.ui.preference.PreferenceViewModel
 
 class ViewModelFactory(private val repository: DestinationRepository) :
     ViewModelProvider.NewInstanceFactory() {
@@ -23,6 +24,9 @@ class ViewModelFactory(private val repository: DestinationRepository) :
             }
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
                 LoginViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(PreferenceViewModel::class.java) -> {
+                PreferenceViewModel(repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }

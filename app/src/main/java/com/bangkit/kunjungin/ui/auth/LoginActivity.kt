@@ -81,7 +81,9 @@ class LoginActivity : AppCompatActivity() {
                 val token = response.loginResult?.token.toString()
                 val name = response.loginResult?.name.toString()
                 val cityId = response.loginResult?.cityId!!.toInt()
-                saveSession(UserModel(email, token, name, cityId,true))
+                val userId = response.loginResult?.id!!.toInt()
+                val recommendationStatus = response.loginResult.recommendationStatus ?: false
+                saveSession(UserModel(email, token, name, cityId, userId, recommendationStatus,true))
             }
         }
     }

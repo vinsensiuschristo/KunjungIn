@@ -17,8 +17,10 @@ import androidx.core.app.ActivityCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.bangkit.kunjungin.R
+import com.bangkit.kunjungin.data.local.pref.PlaceType
 import com.bangkit.kunjungin.databinding.ActivityMainBinding
 import com.bangkit.kunjungin.ui.auth.LoginActivity
+import com.bangkit.kunjungin.ui.preference.PreferenceActivity
 import com.bangkit.kunjungin.utils.ViewModelFactory
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
@@ -39,6 +41,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     val PERMISSION_ID = 1010
     private var isLocationUpdated = false
+    private var userId = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +53,12 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-
+        val selectedTypes = intent.getParcelableArrayListExtra<PlaceType>("selectedTypes")
+        selectedTypes?.let {
+            for (placeType in it) {
+                Log.d("MainActivity", "Selected Type: ${placeType.name}, ID: ${placeType.id}")
+            }
+        }
         setupUser()
         requestPermission()
 
@@ -87,11 +95,24 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.getSession().observe(this@MainActivity) {
             token = it.token
             cityId = it.cityId
+            userId = it.userId
             if (!it.isLogin) {
                 startActivity(Intent(this, LoginActivity::class.java))
                 finish()
+            } else {
+                if (!it.recommendationStatus) {
+                    redirectToPreferenceActivity()
+                }
             }
         }
+    }
+
+    private fun redirectToPreferenceActivity() {
+        val intent = Intent(this, PreferenceActivity::class.java)
+        intent.putExtra("token", token)
+        intent.putExtra("userId", userId)
+        startActivity(intent)
+        finish()
     }
 
     private fun checkPermission(): Boolean {

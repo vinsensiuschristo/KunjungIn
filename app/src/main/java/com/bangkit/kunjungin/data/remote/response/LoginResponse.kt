@@ -12,5 +12,6 @@ data class LoginResult(
     @SerializedName("userId") val id: Int,
     @SerializedName("name") val name: String,
     @SerializedName("city_id") val cityId: Int,
+    @SerializedName("recommendation_status") val recommendationStatus: Boolean,
     @SerializedName("token") val token: String,
 )

@@ -43,4 +43,10 @@
     <string name="recommendation_headline">Rekomendasi Untukmu</string>
     <string name="recommendation_desc1">Wisata Sejarah Paling Dekat dengan Tempatmu</string>
     <string name="image">Gambar</string>
+    <string name="preference_headline">Pilih Minat Anda</string>
+    <string name="preference_desc">Kami akan merekomendasikan tempat wisata sejarah berdasarkan jenis tempat yang Anda pilih.</string>
+    <string name="next">Lanjutkan</string>
+    <string name="candi">Candi</string>
+    <string name="museum">Museum</string>
+    <string name="gunung">Gunung</string>
 </resources>

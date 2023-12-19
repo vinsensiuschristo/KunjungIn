@@ -1,23 +1,19 @@
 package com.bangkit.kunjungin.data.remote.response
-
 import com.google.gson.annotations.SerializedName
 
-data class NearbyPlacesResponse(
+data class TopRatedPlacesResponse(
 
     @field:SerializedName("message")
     val message: String? = null,
 
     @field:SerializedName("result")
-    val result: List<NearbyPlaceRecommendation>
+    val result: List<TopRatedPlaceRecommendation>
 )
 
-data class NearbyPlaceRecommendation(
-
-    @field:SerializedName("distance")
-    val distance: Double,
+data class TopRatedPlaceRecommendation(
 
     @field:SerializedName("id")
-    val id: Int,
+    val id: Double,
 
     @field:SerializedName("name")
     val name: String,

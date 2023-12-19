@@ -22,6 +22,8 @@ class UserPreferences private constructor(private val dataStore: DataStore<Prefe
             preferences[TOKEN_KEY] = user.token
             preferences[USER_NAME] = user.name
             preferences[CITY_ID] = user.cityId
+            preferences[USER_ID] = user.userId
+            preferences[RECOMMENDATION_STATUS] = user.recommendationStatus
             preferences[IS_LOGIN_KEY] = user.isLogin
         }
     }
@@ -33,6 +35,8 @@ class UserPreferences private constructor(private val dataStore: DataStore<Prefe
                 preferences[TOKEN_KEY] ?: "",
                 preferences[USER_NAME] ?: "",
                 preferences[CITY_ID] ?: 0,
+                preferences[USER_ID] ?:0,
+                preferences[RECOMMENDATION_STATUS] ?: false,
                 preferences[IS_LOGIN_KEY] ?: false
             )
         }
@@ -50,6 +54,12 @@ class UserPreferences private constructor(private val dataStore: DataStore<Prefe
         }
     }
 
+    suspend fun updateRecommendationStatus(recommendationStatus: Boolean) {
+        dataStore.edit { preferences ->
+            preferences[RECOMMENDATION_STATUS] = recommendationStatus
+        }
+    }
+
     companion object {
         @Volatile
         private var INSTANCE: UserPreferences? = null
@@ -58,6 +68,8 @@ class UserPreferences private constructor(private val dataStore: DataStore<Prefe
         private val TOKEN_KEY = stringPreferencesKey("token")
         private val USER_NAME = stringPreferencesKey("name")
         private val CITY_ID = intPreferencesKey("cityId")
+        private val USER_ID = intPreferencesKey("userId")
+        private val RECOMMENDATION_STATUS = booleanPreferencesKey("recommendationStatus")
         private val IS_LOGIN_KEY = booleanPreferencesKey("isLogin")
 
         fun getInstance(dataStore: DataStore<Preferences>): UserPreferences {

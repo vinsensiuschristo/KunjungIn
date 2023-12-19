@@ -5,12 +5,14 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
+import com.bangkit.kunjungin.data.local.pref.AddUserRecommendationRequest
 import com.bangkit.kunjungin.data.local.pref.DataLogin
 import com.bangkit.kunjungin.data.local.pref.DataSignup
 import com.bangkit.kunjungin.data.local.pref.NearbyPlacesRequest
 import com.bangkit.kunjungin.data.local.pref.UserModel
 import com.bangkit.kunjungin.data.local.pref.UserPreferences
 import com.bangkit.kunjungin.data.remote.networking.ApiService
+import com.bangkit.kunjungin.data.remote.response.AddUserRecommendationResponse
 import com.bangkit.kunjungin.data.remote.response.LoginResponse
 import com.bangkit.kunjungin.data.remote.response.NearbyPlacesResponse
 import com.bangkit.kunjungin.data.remote.response.SignupResponse
@@ -39,6 +41,9 @@ class DestinationRepository private constructor(
     private val _nearbyPlacesResponse = MutableLiveData<NearbyPlacesResponse>()
     val nearbyPlacesResponse: LiveData<NearbyPlacesResponse> = _nearbyPlacesResponse
 
+    private val _addUserRecommendationResponse = MutableLiveData<AddUserRecommendationResponse>()
+    val addUserRecommendationResponse: LiveData<AddUserRecommendationResponse> = _addUserRecommendationResponse
+
     suspend fun saveSession(user: UserModel) {
         userPreferences.saveSession(user)
     }
@@ -53,6 +58,10 @@ class DestinationRepository private constructor(
 
     suspend fun logout() {
         userPreferences.logout()
+    }
+
+    suspend fun updateRecommendationStatus(recommendationStatus: Boolean) {
+        userPreferences.updateRecommendationStatus(recommendationStatus)
     }
 
     fun postSignup(name: String, email: String, address: String, password: String, city: Int) {
@@ -168,6 +177,36 @@ class DestinationRepository private constructor(
                 _loading.value = false
                 _toast.value = Event(t.message.toString())
                 Log.e(ContentValues.TAG, "onFailure: ${t.message.toString()}")
+            }
+
+        })
+    }
+
+    fun postUserRecommendation(placeType: List<String>, token: String, userId: Int) {
+        val postUserRecommendationRequest = AddUserRecommendationRequest(placeType)
+        _loading.value = true
+        Log.d("PlaceType", "PlaceType Request: $placeType")
+        val client = apiService.addUserRecommendation("$token",userId, postUserRecommendationRequest)
+        client.enqueue(object : Callback<AddUserRecommendationResponse> {
+            override fun onResponse(call: Call<AddUserRecommendationResponse>, response: Response<AddUserRecommendationResponse>) {
+                if (response.isSuccessful && response.body() != null) {
+                    _toast.value = Event(response.body()?.message.toString())
+                    _addUserRecommendationResponse.value = response.body()
+                    Log.d("PostAddRecommendation", "API call successful")
+                    Log.d("PostAddRecommendation", "Response: ${response.body()}")
+                } else {
+                    Event(response.message().toString())
+                    Log.e("PostAddRecommendation", "API call unsuccessful")
+                    Log.e("PostAddRecommendation", "Error message: ${response.message()}")
+                    Log.e("PostAddRecommendation", "Error body: ${response.errorBody()?.string()}")
+
+                }
+                _loading.value = false
+            }
+
+            override fun onFailure(call: Call<AddUserRecommendationResponse>, t: Throwable) {
+                _loading.value = false
+                _toast.value = Event(t.message.toString())
             }
 
         })
