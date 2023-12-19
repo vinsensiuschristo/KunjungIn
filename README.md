@@ -9,7 +9,7 @@ _______
 
 ### Our Cloud Infastucture
 
-![alt text](https://github.com/vinsensiuschristo/KunjungIn/blob/[branch]/image.jpg?raw=true)
+![alt text](https://github.com/vinsensiuschristo/KunjungIn/blob/cc/image/Infrastructure.png?raw=true)
 
 _______
 
