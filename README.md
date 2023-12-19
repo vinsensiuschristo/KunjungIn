@@ -7,6 +7,12 @@
 
 _______
 
+### Our Cloud Infastucture
+
+![alt text](https://github.com/vinsensiuschristo/KunjungIn/blob/[branch]/image.jpg?raw=true)
+
+_______
+
 ### Installation
 
 For NodeJS App : [Link](https://github.com/vinsensiuschristo/KunjungIn/tree/cc/kunjungin-api)
