@@ -341,9 +341,7 @@ Used to get a list of historical places around the user location based on highes
 
 ```json
 {
-  "PlaceName":"[hint for place name]",
-  "types": "[user latitude position locatin]",
-  "city_id": "[city id]"
+  "PlaceName":"[full name of place]"
 }
 ```
 
@@ -351,9 +349,7 @@ Used to get a list of historical places around the user location based on highes
 
 ```json
 {
-  "PlaceName": "Museum",
-  "types": "museum|tourist_attraction|point_of_interest|establishment",
-  "city_id" : 8
+  "PlaceName": "Pura Candi Untoroyono"
 }
 ```
 
@@ -365,28 +361,26 @@ Used to get a list of historical places around the user location based on highes
 
 ```json
 {
-  "message": "Data processed successfully",
+    "error": false,
+    "message": "Data processed successfully",
     "result": [
         {
-            "id": 4,
-            "name": "Perpustakaan BBalitvet",
-            "photo_reference": "ATJ83zhwny_FutwnEqwLix0TivFzPPuy1xWbuyypELpoKDgPU2yDhoi05O2D3Sl-__qSEYQcMEbtY-ZgNk45sdO6-GIZ3tWHJf_b6t0qn5RGmbdsKEDTanD6aZHKOPJucLXs6KSi0KsQ-nv_QTurC0fPi2EPlK0Pb2-vlN7hUZVxdkoveWcE",
-            "rating": 4.8,
-            "types": "museum|tourist_attraction|point_of_interest|establishment"
+            "id": 3,
+            "name": "Pura Sonosewu",
+            "rating": 4.5,
+            "types": "hindu_temple|tourist_attraction|place_of_worship|point_of_interest|establishment"
         },
         {
-            "id": 235,
-            "name": "Museum Tanah dan Pertanian",
-            "photo_reference": "ATJ83zgDYYH6iBw5Pu5mgBP64rseEefindzMPaZwxvY2xZsUzlrGCHTivCNd7uCRsti2v74RqubigRuSjkahFQbozJZ2A0D7jj4xRi06-fV88cYgEIhmwXgngDs34Ywwg2tcOekn6L1r1JF0SmQUjsEeKGTqFplMmuHxiRw50Iomiu40_OrO",
-            "rating": 4.7,
-            "types": "museum|tourist_attraction|point_of_interest|establishment"
+            "id": 175,
+            "name": "Candi Sari",
+            "rating": 4.5,
+            "types": "tourist_attraction|place_of_worship|point_of_interest|establishment"
         },
         {
-            "id": 834,
-            "name": "Museum Kepresidenan Balai Kirti",
-            "photo_reference": "ATJ83ziSIi0n9NfWYfEF9-ER4Y5gDhzIX8RWm9EOLggqQJ49e7ldZKGENIWUVBrLnuA3KUZXu1YVwZzW3b8_gDxu-FlSn_USc77KGgCU60-K8w4cPxk0UrQTNPFQgcALrmj_XiJlcKsgSaTRsFJRRrudfFIFapuTB25C12-B0YZs3IK3lnlr",
-            "rating": 4.7,
-            "types": "museum|tourist_attraction|point_of_interest|establishment"
+            "id": 180,
+            "name": "Candi Kalasan",
+            "rating": 4.5,
+            "types": "tourist_attraction|place_of_worship|point_of_interest|establishment"
         }
     ]
 }
