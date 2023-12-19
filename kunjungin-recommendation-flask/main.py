@@ -124,97 +124,97 @@ def recommend_distance():
 
 # ...
 
-# @app.route('/recommend-rating', methods=['POST'])
-# def recommend_rating():
-#     try:
-#         data_received = request.get_json()
-
-#         place_name = data_received.get('PlaceName', '')
-#         types = data_received.get('types', '')
-#         city_id = data_received.get('city_id', 0)
-
-#         # Read data from MySQL using SQLAlchemy engine
-#         query = f"SELECT * FROM historical_place where city_id ={city_id}"
-#         df = pd.read_sql(query, engine)
-
-#         # Matching the types with the dataset and reset the index
-#         category = df['types']
-#         City = df['city_id']
-
-#         def calculate_similarity(row):
-#             place_types = row['types']
-#             return 1 if types == place_types else 0
-
-#         df['similarity'] = df.apply(calculate_similarity, axis=1)
-
-#         # Filter places with the same types
-#         filtered_df = df[df['similarity'] == 1]
-
-#         # Calculate the cosine similarity between place_name and names in the dataset
-#         tf = TfidfVectorizer(analyzer='word', ngram_range=(2, 2), min_df=1, stop_words='english')
-#         tfidf_matrix = tf.fit_transform(filtered_df['name'])
-#         similarity_scores = cosine_similarity(tf.transform([place_name]), tfidf_matrix).flatten()
-
-#         # Get the indices of the most similar places
-#         similar_indices = similarity_scores.argsort()[::-1][:5]
-
-#         # Get the top 5 recommendations
-#         rec = filtered_df[['id','name', 'types', 'rating', 'photo_reference']].iloc[similar_indices]
-#         rec = rec.sort_values(by='rating', ascending=False)
-
-#         # Convert the DataFrame to a list of dictionaries
-#         result_data = rec.to_dict(orient='records')
-
-#         return jsonify(result_data)
-#     except Exception as e:
-#         print('Error processing data:', str(e))
-#         return jsonify({"error": "Internal server error"}), 500
-    
-    # ...
-
 @app.route('/recommend-rating', methods=['POST'])
 def recommend_rating():
     try:
         data_received = request.get_json()
 
         place_name = data_received.get('PlaceName', '')
-        # city_id = data_received.get('city_id', 0)
+        types = data_received.get('types', '')
+        city_id = data_received.get('city_id', 0)
 
         # Read data from MySQL using SQLAlchemy engine
-        query = f"SELECT * FROM historical_place"
+        query = f"SELECT * FROM historical_place where city_id ={city_id}"
         df = pd.read_sql(query, engine)
 
-         # Use the queried data to create necessary variables
-        tourism_data = df[['id', 'types', 'name', 'rating']]
+        # Matching the types with the dataset and reset the index
+        category = df['types']
+        City = df['city_id']
 
-        # TF-IDF Vectorizer
-        tf = TfidfVectorizer()
-        tfidf_matrix = tf.fit_transform(tourism_data['name'])
-        cosine_sim = cosine_similarity(tfidf_matrix, tfidf_matrix)
-        cosine_sim_df = pd.DataFrame(cosine_sim, index=tourism_data['name'], columns=tourism_data['name'])
+        def calculate_similarity(row):
+            place_types = row['types']
+            return 1 if types == place_types else 0
 
-        # Rekomendasi
-        k = 5
-        index = cosine_sim_df.loc[:, place_name].to_numpy().argpartition(range(-1, -k, -1))
-        closest = cosine_sim_df.columns[index[-1:-(k + 2):-1]]
-        closest = closest.drop(place_name, errors='ignore')
+        df['similarity'] = df.apply(calculate_similarity, axis=1)
 
-        result_df = tourism_data[tourism_data['name'].isin(closest)]
+        # Filter places with the same types
+        filtered_df = df[df['similarity'] == 1]
 
-        # Sort by highest rating
-        result_df = result_df.sort_values(by='rating', ascending=False)
+        # Calculate the cosine similarity between place_name and names in the dataset
+        tf = TfidfVectorizer(analyzer='word', ngram_range=(2, 2), min_df=1, stop_words='english')
+        tfidf_matrix = tf.fit_transform(filtered_df['name'])
+        similarity_scores = cosine_similarity(tf.transform([place_name]), tfidf_matrix).flatten()
 
-        # Convert DataFrame to JSON response
-        result_json = result_df.head(k).to_json(orient='records')
+        # Get the indices of the most similar places
+        similar_indices = similarity_scores.argsort()[::-1][:5]
 
-        # Parse the JSON string to a Python object
-        result_data = json.loads(result_json)
+        # Get the top 5 recommendations
+        rec = filtered_df[['id','name', 'types', 'rating', 'photo_reference']].iloc[similar_indices]
+        rec = rec.sort_values(by='rating', ascending=False)
+
+        # Convert the DataFrame to a list of dictionaries
+        result_data = rec.to_dict(orient='records')
 
         return jsonify(result_data)
-    
     except Exception as e:
         print('Error processing data:', str(e))
         return jsonify({"error": "Internal server error"}), 500
+    
+    # ...
+
+# @app.route('/recommend-rating', methods=['POST'])
+# def recommend_rating():
+#     try:
+#         data_received = request.get_json()
+
+#         place_name = data_received.get('PlaceName', '')
+#         # city_id = data_received.get('city_id', 0)
+
+#         # Read data from MySQL using SQLAlchemy engine
+#         query = f"SELECT * FROM historical_place"
+#         df = pd.read_sql(query, engine)
+
+#          # Use the queried data to create necessary variables
+#         tourism_data = df[['id', 'types', 'name', 'rating']]
+
+#         # TF-IDF Vectorizer
+#         tf = TfidfVectorizer()
+#         tfidf_matrix = tf.fit_transform(tourism_data['name'])
+#         cosine_sim = cosine_similarity(tfidf_matrix, tfidf_matrix)
+#         cosine_sim_df = pd.DataFrame(cosine_sim, index=tourism_data['name'], columns=tourism_data['name'])
+
+#         # Rekomendasi
+#         k = 5
+#         index = cosine_sim_df.loc[:, place_name].to_numpy().argpartition(range(-1, -k, -1))
+#         closest = cosine_sim_df.columns[index[-1:-(k + 2):-1]]
+#         closest = closest.drop(place_name, errors='ignore')
+
+#         result_df = tourism_data[tourism_data['name'].isin(closest)]
+
+#         # Sort by highest rating
+#         result_df = result_df.sort_values(by='rating', ascending=False)
+
+#         # Convert DataFrame to JSON response
+#         result_json = result_df.head(k).to_json(orient='records')
+
+#         # Parse the JSON string to a Python object
+#         result_data = json.loads(result_json)
+
+#         return jsonify(result_data)
+    
+#     except Exception as e:
+#         print('Error processing data:', str(e))
+#         return jsonify({"error": "Internal server error"}), 500
 
 @app.route('/places', methods=['GET'])
 def get_places():
