@@ -18,7 +18,9 @@
             android:id="@+id/btn_back"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
+            android:background="@color/light_beige"
             android:contentDescription="@string/back"
+            android:paddingHorizontal="15dp"
             android:src="@drawable/arrow_left" />
 
         <TextView
@@ -35,7 +37,9 @@
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_gravity="end"
+            android:background="@color/light_beige"
             android:contentDescription="@string/share"
+            android:paddingHorizontal="15dp"
             android:src="@drawable/share_2" />
 
         <ImageButton
@@ -43,6 +47,8 @@
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_gravity="end"
+            android:paddingHorizontal="15dp"
+            android:background="@color/light_beige"
             android:contentDescription="@string/favorite"
             android:src="@drawable/heart_fav" />
 
@@ -70,16 +76,17 @@
         android:id="@+id/detail_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="15dp"
-        android:fontFamily="@font/poppins_medium"
         android:drawableLeft="@drawable/map_pin"
+        android:drawablePadding="10dp"
+        android:fontFamily="@font/poppins_medium"
+        android:paddingHorizontal="15dp"
         android:textSize="14sp"
-        android:drawablePadding="4dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/detail_title"
         tools:text="@string/location" />
 
     <TextView
+        android:id="@+id/description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -88,11 +95,12 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detail_location"
+        app:layout_constraintTop_toBottomOf="@+id/description_title"
         tools:text="@string/destination_description" />
 
     <TextView
         android:id="@+id/distance_to_location"
+        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|start"
@@ -104,7 +112,31 @@
         android:text="@string/rating"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detail_title" />
+        app:layout_constraintTop_toBottomOf="@+id/detail_image" />
+
+    <TextView
+        android:id="@+id/description_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_bold"
+        android:paddingHorizontal="15dp"
+        android:paddingTop="10dp"
+        android:textSize="16sp"
+        android:text="@string/description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detail_location"/>
+
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/edit_text_background"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/book_tourguide"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginBottom="20dp"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

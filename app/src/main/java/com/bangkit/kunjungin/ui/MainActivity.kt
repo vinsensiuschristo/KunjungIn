@@ -23,10 +23,12 @@ import com.bangkit.kunjungin.ui.auth.LoginActivity
 import com.bangkit.kunjungin.ui.preference.PreferenceActivity
 import com.bangkit.kunjungin.utils.ViewModelFactory
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.Granularity
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.Priority
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
@@ -53,7 +55,6 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-        val selectedTypes = intent.getParcelableArrayListExtra<PlaceType>("selectedTypes")
         setupUser()
         requestPermission()
 
@@ -80,6 +81,12 @@ class MainActivity : AppCompatActivity() {
                     selectedPlaceTypeName.toString(),
                     location.latitude.toString(),
                     location.longitude.toString(),
+                    cityId,
+                    token
+                )
+                mainViewModel.getTopRatedPlaces(
+                    selectedPlaceTypeName.toString(),
+                    "museum|tourist_attraction|point_of_interest|establishment",
                     cityId,
                     token
                 )
@@ -148,7 +155,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(
                     this,
                     "Harap aktifkan Lokasi perangkat Anda untuk rekomendasi yang lebih akurat",
-                    Toast.LENGTH_SHORT
+                    Toast.LENGTH_LONG
                 ).show()
                 mainViewModel.getNearbyPlaces(
                     "Museum",
@@ -157,6 +164,13 @@ class MainActivity : AppCompatActivity() {
                     cityId,
                     token
                 )
+                mainViewModel.getTopRatedPlaces(
+                    "Museum",
+                    "museum|tourist_attraction|point_of_interest|establishment",
+                    cityId,
+                    token
+                )
+                showLoading()
             }
         } else {
             Toast.makeText(
@@ -217,11 +231,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun newLocationData() {
-        val locationRequest = LocationRequest()
-        locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-        locationRequest.interval = 0
-        locationRequest.fastestInterval = 0
-        locationRequest.numUpdates = 1
+        var timeInterval: Long = 1000
+        val locationRequest = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, timeInterval).apply {
+            setGranularity(Granularity.GRANULARITY_PERMISSION_LEVEL)
+            setWaitForAccurateLocation(true)
+        }.build()
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         if (ActivityCompat.checkSelfPermission(
                 this,

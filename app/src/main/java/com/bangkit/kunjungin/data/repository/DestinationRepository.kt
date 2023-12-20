@@ -9,13 +9,16 @@ import com.bangkit.kunjungin.data.local.pref.AddUserRecommendationRequest
 import com.bangkit.kunjungin.data.local.pref.DataLogin
 import com.bangkit.kunjungin.data.local.pref.DataSignup
 import com.bangkit.kunjungin.data.local.pref.NearbyPlacesRequest
+import com.bangkit.kunjungin.data.local.pref.TopRatedPlacesRequest
 import com.bangkit.kunjungin.data.local.pref.UserModel
 import com.bangkit.kunjungin.data.local.pref.UserPreferences
 import com.bangkit.kunjungin.data.remote.networking.ApiService
 import com.bangkit.kunjungin.data.remote.response.AddUserRecommendationResponse
+import com.bangkit.kunjungin.data.remote.response.GetPlaceDetailsResponse
 import com.bangkit.kunjungin.data.remote.response.LoginResponse
 import com.bangkit.kunjungin.data.remote.response.NearbyPlacesResponse
 import com.bangkit.kunjungin.data.remote.response.SignupResponse
+import com.bangkit.kunjungin.data.remote.response.TopRatedPlacesResponse
 import com.bangkit.kunjungin.utils.Event
 import org.json.JSONObject
 import retrofit2.Call
@@ -41,8 +44,14 @@ class DestinationRepository private constructor(
     private val _nearbyPlacesResponse = MutableLiveData<NearbyPlacesResponse>()
     val nearbyPlacesResponse: LiveData<NearbyPlacesResponse> = _nearbyPlacesResponse
 
+    private val _topRatedPlacesResponse = MutableLiveData<TopRatedPlacesResponse>()
+    val topRatedPlacesResponse: LiveData<TopRatedPlacesResponse> = _topRatedPlacesResponse
+
     private val _addUserRecommendationResponse = MutableLiveData<AddUserRecommendationResponse>()
     val addUserRecommendationResponse: LiveData<AddUserRecommendationResponse> = _addUserRecommendationResponse
+
+    private val _getPlaceDetailsResponse = MutableLiveData<GetPlaceDetailsResponse>()
+    val getPlaceDetailsResponse: LiveData<GetPlaceDetailsResponse> = _getPlaceDetailsResponse
 
     suspend fun saveSession(user: UserModel) {
         userPreferences.saveSession(user)
@@ -174,6 +183,65 @@ class DestinationRepository private constructor(
             }
 
             override fun onFailure(call: Call<NearbyPlacesResponse>, t: Throwable) {
+                _loading.value = false
+                _toast.value = Event(t.message.toString())
+                Log.e(ContentValues.TAG, "onFailure: ${t.message.toString()}")
+            }
+
+        })
+    }
+
+    fun getTopRatedPlace(placeName: String, types: String, cityId: Int, token: String) {
+        val topRatedPlacesRequest = TopRatedPlacesRequest(placeName, types, cityId)
+        _loading.value = true
+        val client = apiService.getTopRatedPlaces("$token", topRatedPlacesRequest)
+        client.enqueue(object : Callback<TopRatedPlacesResponse> {
+            override fun onResponse(call: Call<TopRatedPlacesResponse>, response: Response<TopRatedPlacesResponse>) {
+                if (response.isSuccessful && response.body() != null) {
+                    _toast.value = Event(response.body()?.message.toString())
+                    _topRatedPlacesResponse.value = response.body()
+                    Log.d("TopRatedPlaces", "API call successful")
+                    Log.d("TopRatedPlaces", "Response: ${response.body()}")
+                } else {
+                    Event(response.message().toString())
+                    Log.e("TopRatedPlaces", "API call unsuccessful")
+                    Log.e("TopRatedPlaces", "Error message: ${response.message()}")
+                    Log.e("TopRatedPlaces", "Error body: ${response.errorBody()?.string()}")
+
+                }
+                _loading.value = false
+            }
+
+            override fun onFailure(call: Call<TopRatedPlacesResponse>, t: Throwable) {
+                _loading.value = false
+                _toast.value = Event(t.message.toString())
+                Log.e(ContentValues.TAG, "onFailure: ${t.message.toString()}")
+            }
+
+        })
+    }
+
+    fun getPlaceDetails(placeId: Int, token: String) {
+        _loading.value = true
+        val client = apiService.getPlaceDetails("$token", placeId)
+        client.enqueue(object : Callback<GetPlaceDetailsResponse> {
+            override fun onResponse(call: Call<GetPlaceDetailsResponse>, response: Response<GetPlaceDetailsResponse>) {
+                if (response.isSuccessful && response.body() != null) {
+                    _toast.value = Event(response.body()?.message.toString())
+                    _getPlaceDetailsResponse.value = response.body()
+                    Log.d("GetPlaceDetails", "API call successful")
+                    Log.d("GetPlaceDetails", "Response: ${response.body()}")
+                } else {
+                    Event(response.message().toString())
+                    Log.e("GetPlaceDetails", "API call unsuccessful")
+                    Log.e("GetPlaceDetails", "Error message: ${response.message()}")
+                    Log.e("GetPlaceDetails", "Error body: ${response.errorBody()?.string()}")
+
+                }
+                _loading.value = false
+            }
+
+            override fun onFailure(call: Call<GetPlaceDetailsResponse>, t: Throwable) {
                 _loading.value = false
                 _toast.value = Event(t.message.toString())
                 Log.e(ContentValues.TAG, "onFailure: ${t.message.toString()}")

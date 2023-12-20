@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bangkit.kunjungin.R
@@ -35,10 +34,26 @@ class PreferenceActivity : AppCompatActivity() {
         Log.d("PreferenceActivity", "UserId: $userId")
         val saveButton = binding.saveButton
 
+        saveButton.isEnabled = false
         saveButton.setOnClickListener {
             savePreferences()
         }
         showLoading()
+
+        binding.checkbox1.setOnCheckedChangeListener { _, _ ->
+            checkButtonEnabled()
+        }
+        binding.checkbox2.setOnCheckedChangeListener { _, _ ->
+            checkButtonEnabled()
+        }
+        binding.checkbox3.setOnCheckedChangeListener { _, _ ->
+            checkButtonEnabled()
+        }
+    }
+
+    private fun checkButtonEnabled() {
+        binding.saveButton.isEnabled =
+            binding.checkbox1.isChecked || binding.checkbox2.isChecked || binding.checkbox3.isChecked
     }
 
     private fun savePreferences() {

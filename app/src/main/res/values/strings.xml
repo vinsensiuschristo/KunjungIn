@@ -49,4 +49,8 @@
     <string name="candi">Candi</string>
     <string name="museum">Museum</string>
     <string name="gunung">Gunung</string>
+    <string name="rating_example">4.8</string>
+    <string name="recommendation_desc2">Wisata Sejarah dengan Rating Tertinggi</string>
+    <string name="description">Deskripsi</string>
+    <string name="book_tourguide">Pesan Pemandu Wisata</string>
 </resources>
