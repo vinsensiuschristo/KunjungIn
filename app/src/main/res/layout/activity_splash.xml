@@ -8,7 +8,7 @@
     android:background="@color/choco_brown">
 
     <ImageView
-        android:layout_width="750dp"
-        android:layout_height="781dp"
+        android:layout_width="600dp"
+        android:layout_height="631dp"
         android:src="@drawable/logo" />
 </LinearLayout>
